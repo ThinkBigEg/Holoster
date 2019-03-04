@@ -1,0 +1,12 @@
+{
+  "name": "Holoster",
+  "version": "1.0.0",
+  "description": "A Social Network application",
+  "main": "index.js",
+  "scripts": {
+    "hc:build": "mkdir -p dna && cd dna-src && hc package --strip-meta -o ../dna/holoster.hcpkg",
+    "hc:start": "holochain -c ./conductor-config.toml"
+  },
+  "author": "",
+  "license": "GPL-3"
+}
