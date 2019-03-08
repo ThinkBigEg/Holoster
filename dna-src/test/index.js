@@ -1,97 +1,20 @@
-const { Config, Container, Scenario } = require('@holochain/holochain-nodejs')
-Scenario.setTape(require('tape'))
-const dnaPath = "dist/bundle.json"
-const dna = Config.dna(dnaPath, 'happs')
+// This test file uses the tape testing framework.
+// To learn more, go here: https://github.com/substack/tape
+const { Config, Scenario } = require("@holochain/holochain-nodejs")
+Scenario.setTape(require("tape"))
+
+const dnaPath = "./dist/bundle.json"
 const agentAlice = Config.agent("alice")
+const dna = Config.dna(dnaPath)
 const instanceAlice = Config.instance(agentAlice, dna)
 const scenario = new Scenario([instanceAlice])
 
-/*----------  Chat  ----------*/
-
-
-const testNewChannelParams = {
-  name: "test new stream",
-  description: "for testing...",
-  initial_members: [],
-  public: true
-}
-
-const testMessage = {
-  timestamp: 0,
-  message_type: "text",
-  payload: "I am the message payload",
-  meta: "{}",
-}
-
-
-scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
-  const register_result = await alice.callSync('chat', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
-  t.true(register_result.Ok.includes('alice'))
-
-  const get_profile_result = await alice.callSync('chat', 'get_member_profile', {agent_address: register_result.Ok})
-  console.log(get_profile_result)
-})
-
-scenario.runTape('Can create a public stream with no other members and retrieve it', async (t, {alice}) => {
- 
-  const register_result = await alice.callSync('chat', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
-  t.true(register_result.Ok.includes('alice'))
-
-  const create_result = await alice.callSync('chat', 'create_stream', testNewChannelParams)
-  console.log(create_result)
-  t.deepEqual(create_result.Ok.length, 46)
-
-  const get_all_members_result = await alice.callSync('chat', 'get_members', {stream_address: create_result.Ok})
-  console.log('all members:', get_all_members_result)
-  let allMembers = get_all_members_result.Ok
-  t.true(allMembers.length > 0, 'gets at least one member')
+scenario.runTape("description of example test", (t, { alice }) => {
+  // Make a call to a Zome function
+  // indicating the function, and passing it an input
+  const addr = alice.call("my_zome", "create_my_entry", {"entry" : {"content":"sample content"}})
+  const result = alice.call("my_zome", "get_my_entry", {"address": addr.Ok})
   
-  const get_result = await alice.callSync('chat', 'get_all_public_streams', {})
-  console.log(get_result)
-  t.deepEqual(get_result.Ok.length, 1)
-
+  // check for equality of the actual and expected results
+  t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
 })
-
-scenario.runTape('Can post a message to the stream and retrieve', async (t, {alice}) => {
-
-  const register_result = await alice.callSync('chat', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
-  t.true(register_result.Ok.includes('alice'))
-
-  const create_result = await alice.callSync('chat', 'create_stream', testNewChannelParams)
-  console.log(create_result)
-  const stream_addr = create_result.Ok
-  t.deepEqual(stream_addr.length, 46)
-
-  const get_result = await alice.callSync('chat', 'get_all_public_streams', {})
-  console.log(get_result)
-  t.deepEqual(get_result.Ok.length, 1)
-
-  const post_result = await alice.callSync('chat', 'post_message', {stream_address: stream_addr, message: testMessage})
-  console.log(post_result)
-  t.notEqual(post_result.Ok, undefined, 'post should return Ok')
-
-  const get_message_result = await alice.callSync('chat', 'get_messages', {address: stream_addr})
-  console.log(get_message_result)
-  t.deepEqual(get_message_result.Ok[0].entry.payload, testMessage.payload, 'expected to receive the message back')
-})
-
-scenario.runTape('Can create a public stream with some members', async (t, {alice}) => {
-
-  const register_result = await alice.callSync('chat', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
-  t.true(register_result.Ok.includes('alice'))
-
-  const create_result = await alice.callSync('chat', 'create_stream', {...testNewChannelParams, public: false, initial_members: allMemberAddrs})
-  console.log(create_result)
-  t.deepEqual(create_result.Ok.length, 46)
-
-  const get_all_members_result = await alice.callSync('chat', 'get_members', {stream_address: create_result.Ok})
-  console.log('all members:', get_all_members_result)
-  let allMemberAddrs = get_all_members_result.Ok
-  t.true(allMemberAddrs.length > 0, 'gets at least one member')
-})
-
-
