@@ -19,11 +19,13 @@ use hdk::holochain_core_types::{
 };
 
 mod member;
+mod post;
 
 define_zome! {
 
 	entries: [
-        member::profile_definition()
+        member::profile_definition(),
+        post::post_definition()
 	]
 
     genesis: || {
@@ -43,12 +45,24 @@ define_zome! {
             outputs: |result: ZomeApiResult<Option<Entry>>|,
             handler: member::handlers::handle_get_member_profile
         }
+        create_post: {
+            inputs: |content: String|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler: post::handlers::handle_create_post
+        }
+        get_post: {
+            inputs: |address: Address|,
+            outputs: |result: ZomeApiResult<Option<Entry>>|,
+            handler: post::handlers::handle_get_post
+        }
 	]
 
     traits: {
         hc_public [
             register,
-            get_member_profile
+            get_member_profile,
+            create_my_post,
+            get_post
         ]
 	}
  }
