@@ -61,7 +61,7 @@ define_zome! {
         hc_public [
             register,
             get_member_profile,
-            create_my_post,
+            create_post,
             get_post
         ]
 	}
