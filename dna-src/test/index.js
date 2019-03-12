@@ -1,22 +1,19 @@
-// This test file uses the tape testing framework.
-// To learn more, go here: https://github.com/substack/tape
-const { Config, Scenario } = require("@holochain/holochain-nodejs")
-Scenario.setTape(require("tape"))
-
-const dnaPath = "./dist/dna-src.dna.json"
+const { Config, Container, Scenario } = require('@holochain/holochain-nodejs')
+Scenario.setTape(require('tape'))
+const dnaPath = "dist/dna-src.dna.json"
+const dna = Config.dna(dnaPath, 'happs')
 const agentAlice = Config.agent("alice")
-const dna = Config.dna(dnaPath)
 const instanceAlice = Config.instance(agentAlice, dna)
 const scenario = new Scenario([instanceAlice])
 
-scenario.runTape("description of example test", (t, { alice }) => {
-  // Make a call to a Zome function
-  // indicating the function, and passing it an input
-  const addr = alice.call("holoster", "register", {"name":"amr","avatar_url":"sample url"})
-  console.log(addr);
 
-  //const result = alice.call("my_zome", "get_my_entry", {"address": addr.Ok})
+scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
+  const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+  console.log(register_result)
+  //t.true(register_result.Ok.includes('alice'))
 
-  // check for equality of the actual and expected results
-  //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
+
+  const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_result.Ok})
+  console.log(get_profile_result)
+
 })
