@@ -13,8 +13,7 @@ pub mod handlers;
 #[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct Post {
     pub content: String,
-    pub creator_hash: String,
-    pub timestamp: String,
+    pub creator_hash: Address,
 }
 
 pub fn post_definition() -> ValidatingEntryType {

@@ -10,7 +10,7 @@ scenario.runTape("description of example test", async(t, { alice }) => {
   // Make a call to a Zome function
   // indicating the function, and passing it an input
   const addr = await alice.callSync("holoster", "create_post", {"content":"sample content"})
-  const result = await alice.callSync("holoster", "get_post", {"address": addr.Ok})
+  const result = await alice.callSync("holoster", "get_post", {"post_address": addr.Ok})
   console.log(addr)
   console.log(result)
   // check for equality of the actual and expected results

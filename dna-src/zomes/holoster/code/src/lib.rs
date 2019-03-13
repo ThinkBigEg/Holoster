@@ -51,7 +51,7 @@ define_zome! {
             handler: post::handlers::handle_create_post
         }
         get_post: {
-            inputs: |address: Address|,
+            inputs: |post_address: Address|,
             outputs: |result: ZomeApiResult<Option<Entry>>|,
             handler: post::handlers::handle_get_post
         }

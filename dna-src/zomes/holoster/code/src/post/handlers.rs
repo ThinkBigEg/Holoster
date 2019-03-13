@@ -12,8 +12,7 @@ use crate::post::Post;
 pub fn handle_create_post(content: String) -> ZomeApiResult<Address> {
     let post_entry = Entry::App("post".into(),
                                 Post{content ,
-                                    creator_hash: AGENT_ADDRESS.to_string() ,
-                                    timestamp: "now".into(),
+                                    creator_hash: AGENT_ADDRESS.to_string().into() ,
                                 }.into());
 
     let post_entry_address = hdk::commit_entry(&post_entry)?;
@@ -22,7 +21,7 @@ pub fn handle_create_post(content: String) -> ZomeApiResult<Address> {
 }
 
 // get the post in jsonstring
-pub fn handle_get_post(address: Address) -> ZomeApiResult<Option<Entry>> {
-    hdk::get_entry(&address)
+pub fn handle_get_post(post_address: Address) -> ZomeApiResult<Option<Entry>> {
+    hdk::get_entry(&post_address)
 }
 
