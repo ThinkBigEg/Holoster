@@ -19,7 +19,7 @@ pub struct Post {
 
 pub fn post_definition() -> ValidatingEntryType {
     entry!(
-        name: "Post",
+        name: "post",
         description: "The Member's post",
         sharing: Sharing::Public,
         native_type: Post,
