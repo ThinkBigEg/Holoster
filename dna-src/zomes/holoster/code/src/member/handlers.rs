@@ -7,11 +7,10 @@ use hdk::{
     },
     error::{
         ZomeApiResult,
-        ZomeApiError
     }
 };
 
-use crate::member::{Profile, Member};
+use crate::member::{Profile};
 
 
 pub fn handle_register(name: String , avatar_url: String) -> ZomeApiResult<Address> {
@@ -26,12 +25,7 @@ pub fn handle_register(name: String , avatar_url: String) -> ZomeApiResult<Addre
     Ok(AGENT_ADDRESS.to_string().into())
 }
 
-pub fn handle_get_member_profile(agent_address: Address) -> ZomeApiResult<Profile> {
-    get_links_and_load_type(&agent_address, "profile")?
-        .iter()
-        .next()
-        .ok_or(ZomeApiError::Internal("Agent does not have a profile registered".into()))
-        .map(|elem: Profile| {
-            //elem.profile.clone()
-        })
+pub fn handle_get_member_profile(agent_address: Address) -> ZomeApiResult<Vec<Profile>> {
+    get_links_and_load_type(&agent_address, "profile")
 }
+

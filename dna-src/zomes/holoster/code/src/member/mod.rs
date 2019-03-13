@@ -1,6 +1,5 @@
 use hdk::entry_definition::ValidatingEntryType;
 use hdk::{
-    self,
     holochain_core_types::{
         json::JsonString,
         error::HolochainError,
@@ -17,7 +16,7 @@ pub struct Member {
     pub profile: Profile
 }
 
-#[derive(Serialize, Deserialize, Debug, DefaultJson, Clone)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct Profile {
     pub name: String,
     pub avatar_url: String,

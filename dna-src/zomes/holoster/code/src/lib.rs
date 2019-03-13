@@ -39,7 +39,7 @@ define_zome! {
         }
         get_member_profile: {
             inputs: |agent_address: Address|,
-            outputs: |result: ZomeApiResult<member::Profile>|,
+            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
             handler: member::handlers::handle_get_member_profile
         }
 	]
