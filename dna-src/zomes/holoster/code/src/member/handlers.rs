@@ -20,7 +20,7 @@ pub fn handle_register(name: String , avatar_url: String) -> ZomeApiResult<Addre
                                    }.into());
     let profile_address = hdk::commit_entry(&profile_entry)?;
     hdk::link_entries(&AGENT_ADDRESS,&profile_address,"profile")?;
-    Ok(profile_address)
+    Ok(AGENT_ADDRESS.to_string().into())
 }
 
 pub fn handle_get_member_profile(agent_address: Address) -> ZomeApiResult<Option<Entry>> {

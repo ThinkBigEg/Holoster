@@ -1,5 +1,6 @@
 use hdk::{
     AGENT_ADDRESS,
+    utils,
     error::ZomeApiResult,
 };
 use hdk::holochain_core_types::{
@@ -23,5 +24,9 @@ pub fn handle_create_post(content: String) -> ZomeApiResult<Address> {
 // get the post in jsonstring
 pub fn handle_get_post(post_address: Address) -> ZomeApiResult<Option<Entry>> {
     hdk::get_entry(&post_address)
+}
+
+pub fn handle_get_User_posts(user_address: Address) -> ZomeApiResult<Vec<Post>> {
+    utils::get_links_and_load_type(&user_address, "has_post")
 }
 
