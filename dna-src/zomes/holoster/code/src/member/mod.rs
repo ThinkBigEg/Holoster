@@ -1,9 +1,12 @@
 use hdk::entry_definition::ValidatingEntryType;
-use hdk::holochain_core_types::{
-    json::JsonString,
-    error::HolochainError,
-    dna::entry_types::Sharing,
-    cas::content::Address,
+use hdk::{
+    self,
+    holochain_core_types::{
+        json::JsonString,
+        error::HolochainError,
+        dna::entry_types::Sharing,
+        cas::content::Address,
+    }
 };
 
 pub mod handlers;
@@ -14,7 +17,7 @@ pub struct Member {
     pub profile: Profile
 }
 
-#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson, Clone)]
 pub struct Profile {
     pub name: String,
     pub avatar_url: String,

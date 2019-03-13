@@ -15,7 +15,6 @@ use hdk::holochain_core_types::{
     cas::content::Address,
     json::{JsonString},
     error::HolochainError,
-    entry::Entry,
 };
 
 mod member;
@@ -40,7 +39,7 @@ define_zome! {
         }
         get_member_profile: {
             inputs: |agent_address: Address|,
-            outputs: |result: ZomeApiResult<Option<Entry>>|,
+            outputs: |result: ZomeApiResult<member::Profile>|,
             handler: member::handlers::handle_get_member_profile
         }
 	]
