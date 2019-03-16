@@ -4,7 +4,7 @@ const dnaPath = "dist/dna-src.dna.json"
 const dna = Config.dna(dnaPath, 'happs')
 const agentAlice = Config.agent("alice")
 const instanceAlice = Config.instance(agentAlice, dna)
-const scenario = new Scenario([instanceAlice], { debugLog: true })
+const scenario = new Scenario([instanceAlice])
 
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
