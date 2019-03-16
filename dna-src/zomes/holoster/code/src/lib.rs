@@ -46,7 +46,7 @@ define_zome! {
             handler: member::handlers::handle_get_member_profile
         }
         create_post: {
-            inputs: |content: String|,
+            inputs: |content: String , timestamp: u32|,
             outputs: |result: ZomeApiResult<Address>|,
             handler: post::handlers::handle_create_post
         }
@@ -58,7 +58,7 @@ define_zome! {
         get_user_posts: {
             inputs: |user_address: Address|,
             outputs: |result: ZomeApiResult<Vec<post::Post>>|,
-            handler: post::handlers::handle_get_User_posts
+            handler: post::handlers::handle_get_user_posts
         }
 	]
 

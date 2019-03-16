@@ -14,6 +14,7 @@ pub mod handlers;
 pub struct Post {
     pub content: String,
     pub creator_hash: Address,
+    pub timestamp: u32,
 }
 
 pub fn post_definition() -> ValidatingEntryType {
@@ -27,12 +28,7 @@ pub fn post_definition() -> ValidatingEntryType {
         },
 
         validation: |_post: Post, _validation_data: hdk::ValidationData| {
-        Ok(())
-        /*let x = _post.content.len();
-            match x < 513 {
-                1 => println!("Post created !"),
-                0 => println!("Content too long."),
-            }*/
+            Ok(())
         },
         links:[
             from!(

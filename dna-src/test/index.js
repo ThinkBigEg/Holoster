@@ -21,7 +21,8 @@ scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
 scenario.runTape("Create_post & get_post by post_address", async(t, { alice }) => {
   // Make a call to a Zome function
   // indicating the function, and passing it an input
-  const addr = await alice.callSync("holoster", "create_post", {"content":"sample content"})
+  let now = Math.floor(Date.now() / 1000)
+  const addr = await alice.callSync("holoster", "create_post", {"content":"sample content" , "timestamp":now})
   const result = await alice.callSync("holoster", "get_post", {"post_address": addr.Ok})
   console.log(addr)
   console.log(result)
@@ -36,8 +37,10 @@ scenario.runTape("create post and get all users posts", async(t, { alice }) => {
   console.log(user)
   //t.true(register_result.Ok.includes('alice'))
 
-  const addr1 = await alice.callSync("holoster", "create_post", {"content":"sample content1"})
-  const addr2 = await alice.callSync("holoster", "create_post", {"content":"sample content2"})
+  let now = Math.floor(Date.now() / 1000)
+  const addr1 = await alice.callSync("holoster", "create_post", {"content":"sample content1" , "timestamp":now})
+  let now2 = Math.floor(Date.now() / 1000)
+  const addr2 = await alice.callSync("holoster", "create_post", {"content":"sample content2" , "timestamp":now2})
   const result = await alice.callSync("holoster", "get_user_posts", {"user_address": user.Ok})
   console.log(addr1)
   console.log(addr2)
