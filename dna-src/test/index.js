@@ -4,7 +4,7 @@ const dnaPath = "dist/dna-src.dna.json"
 const dna = Config.dna(dnaPath, 'happs')
 const agentAlice = Config.agent("alice")
 const instanceAlice = Config.instance(agentAlice, dna)
-const scenario = new Scenario([instanceAlice])
+const scenario = new Scenario([instanceAlice], { debugLog: true })
 
 
 scenario.runTape('Register 2 profiles and retrieve them', async (t, {alice}) => {
