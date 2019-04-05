@@ -3,8 +3,8 @@ use hdk::{
     holochain_core_types::{
         json::JsonString,
         error::HolochainError,
-        dna::entry_types::Sharing,
         cas::content::Address,
+        dna::entry_types::Sharing
     }
 };
 
@@ -16,7 +16,7 @@ pub struct Member {
     pub profile: Profile
 }
 
-#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson, Clone)]
 pub struct Profile {
     pub name: String,
     pub avatar_url: String,
@@ -28,12 +28,11 @@ pub fn profile_definition() -> ValidatingEntryType {
         name: "profile",
         description: "profile of particular user in the network",
         sharing: Sharing::Public,
-        native_type: Profile,
+        //native_type: Profile,
         validation_package: || {
-            hdk::ValidationPackageDefinition::Entry
+            hdk::ValidationPackageDefinition::ChainFull
         },
-
-        validation: |_profile: Profile, _ctx: hdk::ValidationData| {
+        validation: |_validation_data: hdk::EntryValidationData<Profile>|{
             Ok(())
         },
 
@@ -43,10 +42,10 @@ pub fn profile_definition() -> ValidatingEntryType {
                 tag: "profile",
 
                 validation_package: || {
-                    hdk::ValidationPackageDefinition::Entry
+                    hdk::ValidationPackageDefinition::ChainFull
                 },
 
-                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                validation: | _validation_data: hdk::LinkValidationData | {
                     Ok(())
                 }
             )

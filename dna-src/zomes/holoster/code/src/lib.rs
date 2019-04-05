@@ -20,12 +20,14 @@ use hdk::holochain_core_types::{
 
 mod member;
 mod post;
+mod comment;
 
 define_zome! {
 
 	entries: [
         member::profile_definition(),
-        post::post_definition()
+        post::post_definition(),
+        comment::comment_definition()
 	]
 
     genesis: || {
