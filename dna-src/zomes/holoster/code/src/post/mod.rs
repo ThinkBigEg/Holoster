@@ -3,9 +3,10 @@ use hdk::{
 };
 use hdk::holochain_core_types::{
     cas::content::Address,
-    dna::entry_types::Sharing,
     error::HolochainError,
     json::JsonString,
+    validation::{EntryValidationData},
+    
 };
 
 pub mod handlers;
@@ -22,12 +23,12 @@ pub fn post_definition() -> ValidatingEntryType {
         name: "post",
         description: "The Member's post",
         sharing: Sharing::Public,
-        native_type: Post,
+        //native_type: Post,
         validation_package: || {
-            hdk::ValidationPackageDefinition::Entry
+            hdk::ValidationPackageDefinition::ChainFull
         },
 
-        validation: |_post: Post, _validation_data: hdk::ValidationData| {
+        validation: |validation_data: hdk::EntryValidationData<Post>| {
             Ok(())
         },
         links:[

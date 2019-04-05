@@ -3,7 +3,6 @@ use hdk::{
 };
 use hdk::holochain_core_types::{
     cas::content::Address,
-    dna::entry_types::Sharing,
     error::HolochainError,
     json::JsonString,
 };
@@ -22,7 +21,7 @@ pub fn comment_definition() -> ValidatingEntryType {
         name: "comment",
         description: "The Member's comment",
         sharing: Sharing::Public,
-        native_type: Comment,
+        //native_type: Comment,
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },

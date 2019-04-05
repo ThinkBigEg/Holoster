@@ -1,6 +1,5 @@
 use hdk::{
     AGENT_ADDRESS,
-    utils,
     error::ZomeApiResult,
 };
 use hdk::holochain_core_types::{

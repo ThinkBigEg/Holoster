@@ -5,12 +5,13 @@ authors = ["AmrTarek <amrtarekmo@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-serde = "1.0"
-serde_json = "1.0"
-serde_derive = "1.0"
-hdk = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.6-alpha" }
-holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.6-alpha" }
-holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.6-alpha" }
+serde = "1.0.89"
+serde_json = { version = "=1.0.39", features = ["preserve_order"] }
+serde_derive = "1.0.89"
+boolinator = "=2.4.0"
+hdk = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.10-alpha2" }
+holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.10-alpha2" }
+holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.10-alpha2" }
 
 [lib]
 path = "src/lib.rs"

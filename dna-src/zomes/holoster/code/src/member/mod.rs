@@ -3,7 +3,6 @@ use hdk::{
     holochain_core_types::{
         json::JsonString,
         error::HolochainError,
-        dna::entry_types::Sharing,
         cas::content::Address,
     }
 };
@@ -28,7 +27,7 @@ pub fn profile_definition() -> ValidatingEntryType {
         name: "profile",
         description: "profile of particular user in the network",
         sharing: Sharing::Public,
-        native_type: Profile,
+        //native_type: Profile,
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
