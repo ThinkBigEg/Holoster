@@ -5,11 +5,12 @@ use hdk::holochain_core_types::{
     cas::content::Address,
     error::HolochainError,
     json::JsonString,
+    dna::entry_types::Sharing
 };
 
 pub mod handlers;
 
-#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson, Clone)]
 pub struct Comment {
     pub content: String,
     pub creator_hash: Address,
@@ -26,7 +27,7 @@ pub fn comment_definition() -> ValidatingEntryType {
             hdk::ValidationPackageDefinition::Entry
         },
 
-        validation: |_comment: Comment, _validation_data: hdk::ValidationData| {
+        validation: |_validation_data: hdk::EntryValidationData<Comment>|{
             Ok(())
         },
         links:[
@@ -35,10 +36,10 @@ pub fn comment_definition() -> ValidatingEntryType {
                 tag: "has_comment",
 
                 validation_package: || {
-                    hdk::ValidationPackageDefinition::Entry
+                    hdk::ValidationPackageDefinition::ChainFull
                 },
 
-                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                validation: | _validation_data: hdk::LinkValidationData | {
                     Ok(())
                 }
             )
