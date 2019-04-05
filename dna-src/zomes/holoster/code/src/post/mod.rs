@@ -6,7 +6,6 @@ use hdk::holochain_core_types::{
     error::HolochainError,
     json::JsonString,
     validation::{EntryValidationData},
-    
 };
 
 pub mod handlers;
