@@ -1,4 +1,5 @@
 use hdk::{
+    api,
     AGENT_ADDRESS,
     utils,
     error::ZomeApiResult,
@@ -29,5 +30,14 @@ pub fn handle_get_post(post_address: Address) -> ZomeApiResult<Option<Entry>> {
 
 pub fn handle_get_user_posts(user_address: Address) -> ZomeApiResult<Vec<Post>> {
     utils::get_links_and_load_type(&user_address, "has_post")
+}
+
+pub fn handle_update_post(old_post_address: Address , content: String, timestamp: u32) -> ZomeApiResult<Address>{
+    let new_post = Entry::App("post".into(),
+                              Post{content ,
+                                  creator_hash: AGENT_ADDRESS.to_string().into() ,
+                                  timestamp ,
+                              }.into());
+    api::update_entry(new_post , &old_post_address)
 }
 

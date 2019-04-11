@@ -57,3 +57,24 @@ scenario.runTape('Register 2 profiles and retrieve them', async (t, {alice}) => 
   const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_address1.Ok})
   console.log(get_profile_result)
 })
+
+scenario.runTape("create post and update it", async(t, { alice }) => {
+  // Make a call to a Zome function
+  // indicating the function, and passing it an input
+  const user = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+  console.log(user)
+  //t.true(register_result.Ok.includes('alice'))
+
+  let now = Math.floor(Date.now() / 1000)
+  const addr1 = await alice.callSync("holoster", "create_post", {"content":"sample content1" , "timestamp":now})
+  console.log(addr1)
+
+  let now2 = Math.floor(Date.now() / 1000)
+  const addr2 = await alice.callSync("holoster", "update_post", {"old_post_address": addr1.Ok , "content":"sample content2" , "timestamp":now2})
+
+  const result = await alice.callSync("holoster", "get_user_posts", {"user_address": user.Ok})
+  console.log(addr2)
+  console.log(result)
+  // check for equality of the actual and expected results
+  //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
+})

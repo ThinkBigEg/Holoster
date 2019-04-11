@@ -62,6 +62,11 @@ define_zome! {
             outputs: |result: ZomeApiResult<Vec<post::Post>>|,
             handler: post::handlers::handle_get_user_posts
         }
+        update_post: {
+            inputs: |old_post_address: Address , content: String, timestamp: u32|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler: post::handlers::handle_update_post
+        }
 	]
 
     traits: {
@@ -70,7 +75,8 @@ define_zome! {
             get_member_profile,
             create_post,
             get_post,
-            get_user_posts
+            get_user_posts,
+            update_post
         ]
 	}
  }
