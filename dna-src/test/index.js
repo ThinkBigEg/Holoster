@@ -81,28 +81,25 @@ scenario.runTape("create post and update it", async(t, { alice }) => {
   //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
 })*/
 
-scenario.runTape("create post then delete it", async(t, { alice }) => {
-    // Make a call to a Zome function
-    // indicating the function, and passing it an input
-    const user = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
-    console.log(user)
-    //t.true(register_result.Ok.includes('alice'))
+scenario.runTape("create post & delete it", async(t, { alice }) => {
+
+    const userAddr = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log("User Address : ",userAddr)
 
     let now = Math.floor(Date.now() / 1000)
-    const addr1 = await alice.callSync("holoster", "create_post", {"content":"sample content1" , "timestamp":now})
-    console.log(addr1)
+    const post1Addr = await alice.callSync("holoster", "create_post", {"content":"This is a post 1" , "timestamp":now})
+    console.log("Post 1 : ",post1Addr)
 
     let now2 = Math.floor(Date.now() / 1000)
-    const addr2 = await alice.callSync("holoster", "create_post", {"content":"sample content2" , "timestamp":now2})
-    console.log(addr2)
+    const post2Addr = await alice.callSync("holoster", "create_post", {"content":"This is a post 2" , "timestamp":now2})
+    console.log("Post 2 : ",post2Addr)
 
-    const result1 = await alice.callSync("holoster", "get_user_posts", {"user_address": user.Ok})
-    console.log(result1)
+    const postsBefore = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
+    console.log("All User Posts : ",postsBefore)
 
-    //await alice.callSync("holoster", "delete_post", {"post_address": addr2.Ok})
+    const deletedPost = await alice.callSync("holoster", "delete_post", {"post_address": post1Addr.Ok})
+    console.log(deletedPost)
 
-    const result2 = await alice.callSync("holoster", "get_user_posts", {"user_address": user.Ok})
-    console.log(result2)
-    // check for equality of the actual and expected results
-    //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
+    const postsAfter = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
+    console.log("All User Posts : ",postsAfter)
 })
