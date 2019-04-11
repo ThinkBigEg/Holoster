@@ -40,8 +40,10 @@ scenario.runTape("create post and get all users posts", async(t, { alice }) => {
 
   let now = Math.floor(Date.now() / 1000)
   const addr1 = await alice.callSync("holoster", "create_post", {"content":"sample content1" , "timestamp":now})
+
   let now2 = Math.floor(Date.now() / 1000)
   const addr2 = await alice.callSync("holoster", "create_post", {"content":"sample content2" , "timestamp":now2})
+
   const result = await alice.callSync("holoster", "get_user_posts", {"user_address": user.Ok})
   console.log(addr1)
   console.log(addr2)
@@ -72,4 +74,47 @@ scenario.runTape("Create_post & Comment & get_post_comment by post_address", asy
   const comments = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
   console.log(comments)
 
+})
+scenario.runTape("create post and update it", async(t, { alice }) => {
+  // Make a call to a Zome function
+  // indicating the function, and passing it an input
+  const user = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+  console.log(user)
+  //t.true(register_result.Ok.includes('alice'))
+
+  let now = Math.floor(Date.now() / 1000)
+  const addr1 = await alice.callSync("holoster", "create_post", {"content":"sample content1" , "timestamp":now})
+  console.log(addr1)
+
+  let now2 = Math.floor(Date.now() / 1000)
+  const addr2 = await alice.callSync("holoster", "update_post", {"old_post_address": addr1.Ok , "content":"sample content2" , "timestamp":now2})
+
+  const result = await alice.callSync("holoster", "get_user_posts", {"user_address": user.Ok})
+  console.log(addr2)
+  console.log(result)
+  // check for equality of the actual and expected results
+  //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
+})
+
+scenario.runTape("create post & delete it", async(t, { alice }) => {
+
+    const userAddr = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log("User Address : ",userAddr)
+
+    let now = Math.floor(Date.now() / 1000)
+    const post1Addr = await alice.callSync("holoster", "create_post", {"content":"This is a post 1" , "timestamp":now})
+    console.log("Post 1 : ",post1Addr)
+
+    let now2 = Math.floor(Date.now() / 1000)
+    const post2Addr = await alice.callSync("holoster", "create_post", {"content":"This is a post 2" , "timestamp":now2})
+    console.log("Post 2 : ",post2Addr)
+
+    const postsBefore = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
+    console.log("All User Posts : ",postsBefore)
+
+    const deletedPost = await alice.callSync("holoster", "delete_post", {"post_address": post1Addr.Ok})
+    console.log(deletedPost)
+
+    const postsAfter = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
+    console.log("All User Posts : ",postsAfter)
 })

@@ -1,4 +1,5 @@
 use hdk::{
+    api,
     AGENT_ADDRESS,
     utils,
     error::ZomeApiResult,
@@ -34,5 +35,19 @@ pub fn handle_get_user_posts(user_address: Address) -> ZomeApiResult<Vec<Post>> 
 
 pub fn handle_get_post_comments(post_address: Address) -> ZomeApiResult<Vec<Comment>> {
     utils::get_links_and_load_type(&post_address, "has_comment")
+}
+
+pub fn handle_update_post(old_post_address: Address , content: String, timestamp: u32) -> ZomeApiResult<Address>{
+    let new_post = Entry::App("post".into(),
+                              Post{content ,
+                                  creator_hash: AGENT_ADDRESS.to_string().into() ,
+                                  timestamp ,
+                              }.into());
+    api::update_entry(new_post , &old_post_address)
+}
+
+pub fn handle_delete_post(post_address: Address) -> ZomeApiResult<()>{
+    hdk::remove_link(&AGENT_ADDRESS , &post_address , "has_post")?;
+    api::remove_entry(&post_address)
 }
 
