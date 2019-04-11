@@ -92,8 +92,7 @@ define_zome! {
             get_post,
             get_user_posts,
             update_post,
-            delete_post
-            get_user_posts,
+            delete_post,
             get_post_comments,
             create_comment
         ]
