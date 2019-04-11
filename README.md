@@ -1,6 +1,8 @@
-# Holochain Social Network
+# Holoster
 
-A Social Network app running and developing on Holochain and ReactJS
+![twitter_header_photo_1](https://user-images.githubusercontent.com/23415882/55510415-892f3e00-565e-11e9-83e5-2cd7c36bf227.png)
+
+A Social Network app running and developing on Holochain and Angular7
 
 ## Getting Started
 
@@ -53,17 +55,12 @@ hc package --strip-meta -o ../dna/holoster.hcpkg
 ### UI
 
 ```
-cd ui-src
-npm install
-npm run build
 ```
 
 ## Built With
 
 * [Holochain](https://developer.holochain.org/)
-* [React](https://reactjs.org/)
 
-A huge acknowledgement to Pusher for providing an open source React chat UI (https://github.com/pusher/react-slack-clone)
 
 ## License
 
