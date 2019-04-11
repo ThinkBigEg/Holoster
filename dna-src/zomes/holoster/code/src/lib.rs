@@ -67,6 +67,11 @@ define_zome! {
             outputs: |result: ZomeApiResult<Address>|,
             handler: post::handlers::handle_update_post
         }
+        delete_post: {
+            inputs: |post_address: Address|,
+            outputs: |result: ZomeApiResult<()>|,
+            handler: post::handlers::handle_delete_post
+        }
 	]
 
     traits: {
@@ -76,7 +81,8 @@ define_zome! {
             create_post,
             get_post,
             get_user_posts,
-            update_post
+            update_post,
+            delete_post
         ]
 	}
  }

@@ -41,3 +41,8 @@ pub fn handle_update_post(old_post_address: Address , content: String, timestamp
     api::update_entry(new_post , &old_post_address)
 }
 
+pub fn handle_delete_post(post_address: Address) -> ZomeApiResult<()>{
+    api::remove_entry(&post_address)
+    //hdk::remove_link(&user_address , &post_address , "has_post")?;
+}
+
