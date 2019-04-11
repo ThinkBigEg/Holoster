@@ -6,6 +6,7 @@ const agentAlice = Config.agent("alice")
 const instanceAlice = Config.instance(agentAlice, dna)
 const scenario = new Scenario([instanceAlice])
 
+/*
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
   console.log(register_result)
@@ -56,4 +57,19 @@ scenario.runTape('Register 2 profiles and retrieve them', async (t, {alice}) => 
 
   const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_address1.Ok})
   console.log(get_profile_result)
+})
+*/
+
+scenario.runTape("Create_post & Comment & get_post_comment by post_address", async(t, { alice }) => {
+  let now = Math.floor(Date.now() / 1000)
+  const postAddr = await alice.callSync("holoster", "create_post", {"content":"This is a post" , "timestamp":now})
+  console.log("postAddress : ", postAddr)
+
+  let commentTimestamp = Math.floor(Date.now() / 1000);
+  const commentAddr = await alice.callSync("holoster", "create_comment", {"content":"This is a comment" , "timestamp":commentTimestamp , "post_address":postAddr.Ok})
+  console.log(commentAddr)
+
+  const comments = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
+  console.log(comments)
+
 })

@@ -9,6 +9,7 @@ use hdk::holochain_core_types::{
 };
 
 use crate::post::Post;
+use crate::comment::Comment;
 
 pub fn handle_create_post(content: String, timestamp: u32) -> ZomeApiResult<Address> {
     let post_entry = Entry::App("post".into(),
@@ -29,5 +30,9 @@ pub fn handle_get_post(post_address: Address) -> ZomeApiResult<Option<Entry>> {
 
 pub fn handle_get_user_posts(user_address: Address) -> ZomeApiResult<Vec<Post>> {
     utils::get_links_and_load_type(&user_address, "has_post")
+}
+
+pub fn handle_get_post_comments(post_address: Address) -> ZomeApiResult<Vec<Comment>> {
+    utils::get_links_and_load_type(&post_address, "has_comment")
 }
 

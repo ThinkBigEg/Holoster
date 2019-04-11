@@ -9,7 +9,7 @@ use hdk::holochain_core_types::{
 
 use crate::comment::Comment;
 
-pub fn handle_create_comment(content: String, timestamp: u32) -> ZomeApiResult<Address> {
+pub fn handle_create_comment(content: String, timestamp: u32 , post_address: Address) -> ZomeApiResult<Address> {
     let comment_entry = Entry::App("comment".into(),
                                 Comment{content ,
                                     creator_hash: AGENT_ADDRESS.to_string().into() ,
@@ -17,7 +17,7 @@ pub fn handle_create_comment(content: String, timestamp: u32) -> ZomeApiResult<A
                                 }.into());
 
     let comment_entry_address = hdk::commit_entry(&comment_entry)?;
-    hdk::link_entries(&AGENT_ADDRESS,&comment_entry_address,"has_comment")?;
+    hdk::link_entries(&post_address,&comment_entry_address,"has_comment")?;
     Ok(comment_entry_address)
 }
 

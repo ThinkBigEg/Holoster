@@ -32,7 +32,7 @@ pub fn comment_definition() -> ValidatingEntryType {
         },
         links:[
             from!(
-                "%agent_id",
+                "post",
                 tag: "has_comment",
 
                 validation_package: || {
