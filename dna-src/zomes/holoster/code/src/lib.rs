@@ -82,6 +82,16 @@ define_zome! {
             outputs: |result: ZomeApiResult<Address>|,
             handler: comment::handlers::handle_create_comment
         }
+        update_comment: {
+            inputs: |old_comment_address: Address , content: String, timestamp: u32|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler: comment::handlers::handle_update_comment
+        }
+        delete_comment: {
+            inputs: |post_address: Address , comment_address: Address|,
+            outputs: |result: ZomeApiResult<()>|,
+            handler: comment::handlers::handle_delete_comment
+        }
 	]
 
     traits: {
@@ -94,7 +104,9 @@ define_zome! {
             update_post,
             delete_post,
             get_post_comments,
-            create_comment
+            create_comment,
+            update_comment,
+            delete_comment
         ]
 	}
  }

@@ -60,7 +60,6 @@ scenario.runTape('Register 2 profiles and retrieve them', async (t, {alice}) => 
   const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_address1.Ok})
   console.log(get_profile_result)
 })
-*/
 
 scenario.runTape("Create_post & Comment & get_post_comment by post_address", async(t, { alice }) => {
   let now = Math.floor(Date.now() / 1000)
@@ -75,9 +74,9 @@ scenario.runTape("Create_post & Comment & get_post_comment by post_address", asy
   console.log(comments)
 
 })
+
 scenario.runTape("create post and update it", async(t, { alice }) => {
-  // Make a call to a Zome function
-  // indicating the function, and passing it an input
+
   const user = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
   console.log(user)
   //t.true(register_result.Ok.includes('alice'))
@@ -117,4 +116,45 @@ scenario.runTape("create post & delete it", async(t, { alice }) => {
 
     const postsAfter = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
     console.log("All User Posts : ",postsAfter)
+})
+
+scenario.runTape("Create_post & Comment & update it then get_post_comment by post_address", async(t, { alice }) => {
+    let now = Math.floor(Date.now() / 1000)
+    const postAddr = await alice.callSync("holoster", "create_post", {"content":"This is a post" , "timestamp":now})
+    console.log("postAddress : ", postAddr)
+
+    let commentTimestamp = Math.floor(Date.now() / 1000);
+    const commentAddr = await alice.callSync("holoster", "create_comment", {"content":"This is a comment" , "timestamp":commentTimestamp , "post_address":postAddr.Ok})
+    console.log("CommentAddress : ",commentAddr)
+
+    const commentsBefore = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
+    console.log("All post Comments : ",commentsBefore)
+
+    let commentTimestamp2 = Math.floor(Date.now() / 1000);
+    const updatedCommentAddr = await alice.callSync("holoster", "update_comment", {"old_comment_address": commentAddr.Ok ,"content":"This is a new comment" , "timestamp":commentTimestamp2})
+    console.log("Update Comment : ",updatedCommentAddr)
+
+    const commentsAfter = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
+    console.log("All post Comments after : ",commentsAfter)
+})
+
+*/
+
+scenario.runTape("Create_post & Comment & update it then get_post_comment by post_address", async(t, { alice }) => {
+    let now = Math.floor(Date.now() / 1000)
+    const postAddr = await alice.callSync("holoster", "create_post", {"content":"This is a post" , "timestamp":now})
+    console.log("postAddress : ", postAddr)
+
+    let commentTimestamp = Math.floor(Date.now() / 1000);
+    const commentAddr = await alice.callSync("holoster", "create_comment", {"content":"This is a comment" , "timestamp":commentTimestamp , "post_address":postAddr.Ok})
+    console.log("CommentAddress : ",commentAddr)
+
+    const commentsBefore = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
+    console.log("All post Comments : ",commentsBefore)
+
+    const deleteComment = await alice.callSync("holoster", "delete_comment", {"post_address": postAddr.Ok,"comment_address": commentAddr.Ok })
+    console.log("Delete Comment : ",deleteComment)
+
+    const commentsAfter = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
+    console.log("All post Comments after : ",commentsAfter)
 })
