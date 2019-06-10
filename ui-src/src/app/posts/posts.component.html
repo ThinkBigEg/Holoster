@@ -1,0 +1,9 @@
+<h1>Posts</h1>
+
+<ul class="form">
+  <li *ngFor="let post of posts$">
+    <a routerLink="">{{ post.title }}</a>
+
+    <p>{{ post.body }}</p>
+  </li>
+</ul>

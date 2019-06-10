@@ -6,7 +6,7 @@ const agentAlice = Config.agent("alice")
 const instanceAlice = Config.instance(agentAlice, dna)
 const scenario = new Scenario([instanceAlice])
 
-/*
+
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
   console.log(register_result)
@@ -117,7 +117,7 @@ scenario.runTape("create post & delete it", async(t, { alice }) => {
     const postsAfter = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
     console.log("All User Posts : ",postsAfter)
 })
-
+/*
 scenario.runTape("Create_post & Comment & update it then get_post_comment by post_address", async(t, { alice }) => {
     let now = Math.floor(Date.now() / 1000)
     const postAddr = await alice.callSync("holoster", "create_post", {"content":"This is a post" , "timestamp":now})
