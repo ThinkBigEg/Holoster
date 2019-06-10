@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/dna-src/zomes/holoster/code/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/dna-src/zomes/holoster/code/benches" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/dna-src/zomes/holoster/code/target" />
+      <excludeFolder url="file://$MODULE_DIR$/ui-src/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/ui-src/tmp" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
