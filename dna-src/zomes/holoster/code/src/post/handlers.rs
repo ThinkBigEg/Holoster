@@ -6,6 +6,7 @@ use hdk::{
 };
 use hdk::holochain_core_types::{
     cas::content::Address,
+    json::JsonString,
     entry::Entry,
 };
 
@@ -50,4 +51,3 @@ pub fn handle_delete_post(post_address: Address) -> ZomeApiResult<()>{
     hdk::remove_link(&AGENT_ADDRESS , &post_address , "has_post")?;
     api::remove_entry(&post_address)
 }
-
