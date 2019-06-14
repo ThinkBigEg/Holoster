@@ -12,7 +12,7 @@ scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   console.log(register_result)
  //t.true(register_result.Ok.includes('alice'))
 
-  const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_result.Ok})
+  const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: rxegister_result.Ok})
   console.log(get_profile_result)
 
    // check for equality of the actual and expected results
@@ -160,11 +160,6 @@ scenario.runTape("Create_post & Comment & update it then get_post_comment by pos
     console.log("All post Comments after : ",commentsAfter)
 })
 */
-
-scenario.runTape("hello", async (t,{alice}) =>{
-    const hello = await alice.callSync("holoster","hello",{})
-    console.log(hello)
-})
 /*
 curl -X POST -H "Content-Type: application/json" -d
 {
