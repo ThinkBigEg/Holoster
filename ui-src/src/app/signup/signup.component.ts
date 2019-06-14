@@ -4,6 +4,8 @@ import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
 import { connect } from '@holochain/hc-web-client'
+import {DataService} from "../data.service";
+import {computeStyle} from "@angular/animations/browser/src/util";
 
 @Component({
   selector: "app-signup",
@@ -11,18 +13,21 @@ import { connect } from '@holochain/hc-web-client'
   styleUrls: ["./signup.component.css"]
 })
 export class SignupComponent implements OnInit {
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder , private service: DataService) {}
+  res : object;
 
   profileForm = this.fb.group({
     handle: ["", Validators.required],
-    email: ["", Validators.required],
     avatar: ["", Validators.required]
   });
 
   signUp = () => {
-    console.log(this.profileForm.get("handle").value);
+    let handle = this.profileForm.get("handle").value;
+    let avatarLink = this.profileForm.get("avatar").value;
+    this.service.signUp(handle,avatarLink)
+      .subscribe(data => this.res = data);
   };
+
 
   ngOnInit() {}
 }
