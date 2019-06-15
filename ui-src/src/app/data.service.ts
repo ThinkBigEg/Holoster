@@ -2,7 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "./Classes/User";
 import { Post } from "./Classes/Post";
-
+import { Observable, of } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
+import { Result } from "./Classes/Result";
 @Injectable({
   providedIn: "root"
 })
@@ -34,13 +36,14 @@ export class DataService {
       name: handle,
       avatar_url: avatar
     };
-    return this.http.post<User>(
+
+    return this.http.post<Result>(
       "http://127.0.0.1:8888",
       this.makeBody(functionName, params)
     );
   };
 
-  createPost = (content: string, timestamp: Int32Array) => {
+  createPost = (content: string, timestamp: number) => {
     const functionName = "post";
     const params = {
       content: content,

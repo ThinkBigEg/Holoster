@@ -13,6 +13,7 @@ import { Post } from "../Classes/Post";
 })
 export class PostsComponent implements OnInit {
   posts: Post[];
+  postHash: string;
 
   constructor(private fb: FormBuilder, private service: DataService) {}
 
@@ -26,7 +27,7 @@ export class PostsComponent implements OnInit {
     let timestamp = new Date().getTime() / 1000;
     this.service
       .createPost(content, timestamp)
-      .subscribe(data => (this.postHash = data));
+      .subscribe(data => (this.postHash = data.toString()));
 
     console.log(this.postHash);
   };

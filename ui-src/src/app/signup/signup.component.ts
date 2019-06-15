@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
     let avatarLink = this.profileForm.get("avatar").value;
     this.service
       .signUp(handle, avatarLink)
-      .subscribe(data => (this.user = data));
+      .subscribe(result => console.log(result.result));
   };
 
   ngOnInit() {}
