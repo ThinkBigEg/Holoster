@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
-import { connect } from '@holochain/hc-web-client'
+//import { connect } from '@holochain/hc-web-client'
 
 @Component({
   selector: "app-signup",
@@ -11,8 +11,7 @@ import { connect } from '@holochain/hc-web-client'
   styleUrls: ["./signup.component.css"]
 })
 export class SignupComponent implements OnInit {
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   profileForm = this.fb.group({
     handle: ["", Validators.required],

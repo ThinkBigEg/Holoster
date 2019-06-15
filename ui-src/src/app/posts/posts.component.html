@@ -7,3 +7,27 @@
     <p>{{ post.body }}</p>
   </li>
 </ul>
+
+<h2>Create new post:</h2>
+<br />
+<body>
+  <form [formGroup]="postForm" (ngSubmit)="createPost()">
+    <div class="login-page">
+      <img class="image" src="assets/img/logo_transparent.png" />
+      <div class="form">
+        <div class="login-form">
+          <input
+            type="text"
+            placeholder="What are your thoughts ?"
+            formControlName="content"
+          />
+          <button>Post</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
+    >Go to posts</a
+  >-->
+</body>
