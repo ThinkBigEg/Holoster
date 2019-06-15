@@ -6,7 +6,6 @@ use hdk::{
 };
 use hdk::holochain_core_types::{
     cas::content::Address,
-    json::JsonString,
     entry::Entry,
 };
 
