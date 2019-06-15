@@ -2,7 +2,6 @@ use hdk::entry_definition::ValidatingEntryType;
 
 use hdk::holochain_core_types::{
     dna::entry_types::Sharing,
-    cas::content::Address,
     json::RawString,
 };
 
@@ -30,7 +29,7 @@ pub fn anchor_definition() -> ValidatingEntryType {
                     hdk::ValidationPackageDefinition::Entry
                 },
 
-                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                validation: |_validation_data: hdk::LinkValidationData| {
                     Ok(())
                 }
             )

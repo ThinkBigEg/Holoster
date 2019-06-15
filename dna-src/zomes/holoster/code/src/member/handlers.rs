@@ -4,6 +4,7 @@ use hdk::{
     holochain_core_types::{
         entry::Entry,
         cas::content::Address,
+        json::RawString,
     },
     error::{
         ZomeApiResult,
