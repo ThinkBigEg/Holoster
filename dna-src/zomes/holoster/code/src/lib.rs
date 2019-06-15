@@ -94,6 +94,16 @@ define_zome! {
             outputs: |result: ZomeApiResult<()>|,
             handler: comment::handlers::handle_delete_comment
         }
+        follow_user: {
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler: comment::handlers::handle_follow_user
+        }
+        unfollow_user: {
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<()>|,
+            handler: comment::handlers::handle_unfollow_user
+        }
 	]
 
     traits: {
@@ -108,7 +118,9 @@ define_zome! {
             get_post_comments,
             create_comment,
             update_comment,
-            delete_comment
+            delete_comment,
+            follow_user,
+            unfollow_user
         ]
 	}
  }

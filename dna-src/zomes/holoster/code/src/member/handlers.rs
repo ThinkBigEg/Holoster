@@ -39,3 +39,10 @@ pub fn handle_get_member_profile(agent_address: Address) -> ZomeApiResult<Vec<Pr
     get_links_and_load_type(&agent_address, "profile")
 }
 
+pub fn handle_follow_user(agent_address: Address) -> ZomeApiResult<Address> {
+
+}
+
+pub fn handle_unfollow_user(agent_address: Address) -> ZomeApiResult<()> {
+
+}

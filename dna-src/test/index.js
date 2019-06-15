@@ -9,11 +9,11 @@ const scenario = new Scenario([instanceAlice])
 
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
+  //console.log(register_result)
  //t.true(register_result.Ok.includes('alice'))
 
   const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_result.Ok})
-  console.log(get_profile_result.Ok)
+  console.log(get_profile_result)
 
    // check for equality of the actual and expected results
   //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
