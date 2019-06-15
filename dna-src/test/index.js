@@ -6,19 +6,19 @@ const agentAlice = Config.agent("alice")
 const instanceAlice = Config.instance(agentAlice, dna)
 const scenario = new Scenario([instanceAlice])
 
-/*
+
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
   console.log(register_result)
  //t.true(register_result.Ok.includes('alice'))
 
-  const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: rxegister_result.Ok})
-  console.log(get_profile_result)
+  const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_result.Ok})
+  console.log(get_profile_result.Ok)
 
    // check for equality of the actual and expected results
   //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
 })
-
+/*
 scenario.runTape("Create_post & get_post by post_address", async(t, { alice }) => {
   // Make a call to a Zome function
   // indicating the function, and passing it an input

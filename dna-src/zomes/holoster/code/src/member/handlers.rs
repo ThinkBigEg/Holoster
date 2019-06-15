@@ -4,6 +4,7 @@ use hdk::{
     holochain_core_types::{
         entry::Entry,
         cas::content::Address,
+        json::RawString,
     },
     error::{
         ZomeApiResult,
@@ -20,6 +21,15 @@ pub fn handle_register(name: String , avatar_url: String) -> ZomeApiResult<Addre
                                        avatar_url,
                                        agent_address: AGENT_ADDRESS.to_string().into()
                                    }.into());
+
+    let anchor_entry = Entry::App(
+        "anchor".into(),
+        RawString::from("member_directory").into(),
+    );
+
+    let anchor_address = hdk::commit_entry(&anchor_entry)?;
+    hdk::link_entries(&anchor_address, &AGENT_ADDRESS, "member_tag")?;
+
     let profile_address = hdk::commit_entry(&profile_entry)?;
     hdk::link_entries(&AGENT_ADDRESS,&profile_address,"profile")?;
     Ok(AGENT_ADDRESS.to_string().into())
