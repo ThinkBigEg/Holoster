@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DataService } from "../data.service";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
+import { connect } from "@holochain/hc-web-client";
 
 import { Observable } from "rxjs";
 
