@@ -25,9 +25,18 @@ export class SignupComponent implements OnInit {
   signUp = () => {
     let handle = this.profileForm.get("handle").value;
     let avatarLink = this.profileForm.get("avatar").value;
-    this.service
-      .signUp(handle, avatarLink)
-      .subscribe(result => console.log(result.result));
+    let params = {
+      name: handle,
+      avatar_url: avatarLink
+    };
+    this.service.makeRequest(params, "register").subscribe(result => {
+      let hash = JSON.parse(result.result).Ok;
+      this.goToHomePage(hash);
+    });
+  };
+
+  goToHomePage = (hash: string) => {
+    console.log(hash);
   };
 
   ngOnInit() {}

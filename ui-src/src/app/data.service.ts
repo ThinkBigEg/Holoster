@@ -30,17 +30,9 @@ export class DataService {
     return body;
   };
 
-  signUp = (handle: string, avatar: string) => {
-    const functionName = "register";
-    const params = {
-      name: handle,
-      avatar_url: avatar
-    };
-
-    return this.http.post<Result>(
-      "http://127.0.0.1:8888",
-      this.makeBody(functionName, params)
-    );
+  makeRequest = (params: object, functionName: string) => {
+    let requestBody: object = this.makeBody(functionName, params);
+    return this.http.post<Result>("http://127.0.0.1:8888", requestBody);
   };
 
   createPost = (content: string, timestamp: number) => {
