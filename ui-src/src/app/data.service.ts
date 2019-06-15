@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { User } from "./Classes/User";
+import { Post } from "./Classes/Post";
 
 @Injectable({
   providedIn: "root"
@@ -8,7 +10,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   getPosts = () => {
-    return this.http.get("https://jsonplaceholder.typicode.com/posts");
+    return this.http.get<Post[]>("https://jsonplaceholder.typicode.com/posts");
   };
 
   makeBody = (functionName, params) => {
@@ -32,7 +34,7 @@ export class DataService {
       name: handle,
       avatar_url: avatar
     };
-    return this.http.post(
+    return this.http.post<User>(
       "http://127.0.0.1:8888",
       this.makeBody(functionName, params)
     );

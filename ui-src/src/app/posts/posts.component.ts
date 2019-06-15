@@ -4,6 +4,7 @@ import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 
 import { Observable } from "rxjs";
+import { Post } from "../Classes/Post";
 
 @Component({
   selector: "app-posts",
@@ -11,8 +12,7 @@ import { Observable } from "rxjs";
   styleUrls: ["./posts.component.css"]
 })
 export class PostsComponent implements OnInit {
-  posts: Object;
-  postHash;
+  posts: Post[];
 
   constructor(private fb: FormBuilder, private service: DataService) {}
 
@@ -22,12 +22,10 @@ export class PostsComponent implements OnInit {
   });
 
   createPost = () => {
-    this.postForm.controls["timestamp"].setValue(new Date().getTime() / 1000);
-    console.log(this.postForm.get("timestamp").value);
     let content = this.postForm.get("content").value;
-    let timestamp = this.postForm.get("timestamp").value;
+    let timestamp = new Date().getTime() / 1000;
     this.service
-      .signUp(content, timestamp)
+      .createPost(content, timestamp)
       .subscribe(data => (this.postHash = data));
 
     console.log(this.postHash);
