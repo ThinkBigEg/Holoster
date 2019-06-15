@@ -11,28 +11,42 @@ export class DataService {
     return this.http.get("https://jsonplaceholder.typicode.com/posts");
   };
 
-  makeBody = (functionName , params) => {
+  makeBody = (functionName, params) => {
     const body = {
-      "id": "0",
-      "jsonrpc": "2.0",
-      "method": "call",
-      "params": {
-      "instance_id": "test-instance",
-        "zome": "holoster",
-        "function": functionName,
-        "params": params
+      id: "0",
+      jsonrpc: "2.0",
+      method: "call",
+      params: {
+        instance_id: "test-instance",
+        zome: "holoster",
+        function: functionName,
+        params: params
       }
     };
     return body;
-  }
+  };
 
-  signUp = (handle:string , avatar:string) => {
+  signUp = (handle: string, avatar: string) => {
     const functionName = "register";
     const params = {
-      "name":handle,
-      "avatar_url":avatar
+      name: handle,
+      avatar_url: avatar
     };
-    return this.http.post("http://127.0.0.1:8888",this.makeBody(functionName,params));
-  }
+    return this.http.post(
+      "http://127.0.0.1:8888",
+      this.makeBody(functionName, params)
+    );
+  };
 
+  createPost = (content: string, timestamp: Int32Array) => {
+    const functionName = "post";
+    const params = {
+      content: content,
+      timestamp: timestamp
+    };
+    return this.http.post(
+      "http://127.0.0.1:8888",
+      this.makeBody(functionName, params)
+    );
+  };
 }
