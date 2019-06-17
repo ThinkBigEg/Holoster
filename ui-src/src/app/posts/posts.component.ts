@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DataService } from "../data.service";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
-import { connect } from "@holochain/hc-web-client";
+//import { connect } from "@holochain/hc-web-client";
 
 import { Observable } from "rxjs";
 
@@ -13,7 +13,7 @@ import { Observable } from "rxjs";
 })
 export class PostsComponent implements OnInit {
   posts: Object;
-  postHash;
+  postHash: String;
 
   constructor(private fb: FormBuilder, private service: DataService) {}
 
@@ -28,11 +28,13 @@ export class PostsComponent implements OnInit {
     let content = this.postForm.get("content").value;
     let timestamp = this.postForm.get("timestamp").value;
     this.service
-      .signUp(content, timestamp)
-      .subscribe(data => (this.postHash = data));
+      .createPost(content, timestamp)
+      .subscribe(data => (this.postHash = data.toString()));
 
     console.log(this.postHash);
   };
+
+  updatePost;
 
   ngOnInit() {
     this.service.getPosts().subscribe(data => (this.posts = data));

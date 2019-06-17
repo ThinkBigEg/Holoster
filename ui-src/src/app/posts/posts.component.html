@@ -1,7 +1,7 @@
 <h1>Posts</h1>
 
 <ul class="form">
-  <li *ngFor="let post of posts$">
+  <li *ngFor="let post of posts">
     <a routerLink="">{{ post.title }}</a>
 
     <p>{{ post.body }}</p>
@@ -10,24 +10,40 @@
 
 <h2>Create new post:</h2>
 <br />
-<body>
-  <form [formGroup]="postForm" (ngSubmit)="createPost()">
-    <div class="login-page">
-      <img class="image" src="assets/img/logo_transparent.png" />
-      <div class="form">
-        <div class="login-form">
-          <input
-            type="text"
-            placeholder="What are your thoughts ?"
-            formControlName="content"
-          />
-          <button>Post</button>
-        </div>
+<form [formGroup]="postForm" (ngSubmit)="createPost()">
+  <div class="login-page">
+    <img class="image" src="assets/img/logo_transparent.png" />
+    <div class="form">
+      <div class="login-form">
+        <input
+          type="text"
+          placeholder="What are your thoughts ?"
+          formControlName="content"
+        />
+        <button>Post</button>
       </div>
     </div>
-  </form>
+  </div>
+</form>
 
-  <!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
+<h2>Update post:</h2>
+<br />
+<form [formGroup]="postForm" (ngSubmit)="createPost()">
+  <div class="login-page">
+    <img class="image" src="assets/img/logo_transparent.png" />
+    <div class="form">
+      <div class="login-form">
+        <input
+          type="text"
+          placeholder="What are your thoughts ?"
+          formControlName="content"
+        />
+        <button>Post</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
     >Go to posts</a
   >-->
-</body>

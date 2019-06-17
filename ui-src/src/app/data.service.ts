@@ -38,7 +38,7 @@ export class DataService {
     );
   };
 
-  createPost = (content: string, timestamp: Int32Array) => {
+  createPost = (content: string, timestamp: number) => {
     const functionName = "create_post";
     const params = {
       content: content,
