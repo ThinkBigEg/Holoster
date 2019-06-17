@@ -62,7 +62,7 @@ pub fn handle_unfollow_user(agent_address: Address) -> ZomeApiResult<()> {
     let entry_address1 = utils::get_user_profile_entry(agent_address.clone())?;
     let entry_address2 = utils::get_user_profile_entry(AGENT_ADDRESS.to_string().into())?;
 
-    hdk::remove_link(&AGENT_ADDRESS , &entry_address1 , "is_following");
+    hdk::remove_link(&AGENT_ADDRESS , &entry_address1 , "is_following")?;
     hdk::remove_link(&agent_address , &entry_address2 , "is_followed_by")
 }
 

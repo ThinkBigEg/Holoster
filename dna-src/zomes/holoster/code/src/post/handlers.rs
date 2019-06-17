@@ -59,6 +59,6 @@ pub fn handle_generate_news_feed() -> ZomeApiResult<Vec<Post>>{
         let mut user_posts = handle_get_user_posts(user.agent_address.to_string().into())?;
         newsfeed.append(&mut user_posts);
     }
-
+    newsfeed.sort_by(|a, b| b.timestamp.cmp(&a.timestamp));
     Ok(newsfeed)
 }

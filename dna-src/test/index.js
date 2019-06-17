@@ -221,9 +221,10 @@ scenario.runTape('Can register alice & bob, alice follows bob, bob create post, 
     const get_following_before = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
     console.log(get_following_before)
 
-    let now = Math.floor(Date.now() / 1000)
+    let now = 1234
     const post1Addr = await bob.callSync("holoster", "create_post", {"content":"This is a post 1" , "timestamp":now})
-    console.log("Post 1 : ",post1Addr)
+    let now2 = 1555
+    const post1Addr2 = await bob.callSync("holoster", "create_post", {"content":"This is a post 2" , "timestamp":now2})
 
     const newsfeed = await alice.callSync("holoster", "generate_news_feed", {})
     console.log(newsfeed)
