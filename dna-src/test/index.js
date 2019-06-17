@@ -161,7 +161,7 @@ scenario.runTape("Create_post & Comment & update it then get_post_comment by pos
     const commentsAfter = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
     console.log("All post Comments after : ",commentsAfter)
 })
-*/
+
 scenario.runTape('Can register alice & bob, alice follows bob, check following and followed_by ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
     console.log(register_address1.Ok)
@@ -178,4 +178,28 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following a
 
     const get_followed_by = await bob.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
     console.log(get_followed_by)
+})
+*/
+
+scenario.runTape('Can register alice & bob, alice follows bob, check following then unfollow ', async (t, {alice, bob}) => {
+    const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log(register_address1.Ok)
+
+    const register_address2 = await bob.callSync('holoster', 'register', {name: 'bob', avatar_url: ''})
+    console.log(register_address2.Ok)
+
+    const temp = await alice.callSync('holoster', 'follow_user', {agent_address: register_address2.Ok})
+    console.log(temp)
+
+
+    const get_following_before = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    console.log("before: ")
+    console.log(get_following_before)
+
+    const get_followed_by = await alice.callSync('holoster', 'unfollow_user', {agent_address: register_address2.Ok})
+
+    const get_following_after = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    console.log("after: ")
+    console.log(get_following_after)
+
 })
