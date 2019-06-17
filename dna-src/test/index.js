@@ -3,22 +3,24 @@ Scenario.setTape(require('tape'))
 const dnaPath = "dist/dna-src.dna.json"
 const dna = Config.dna(dnaPath, 'happs')
 const agentAlice = Config.agent("alice")
+const agentBob = Config.agent("bob")
 const instanceAlice = Config.instance(agentAlice, dna)
-const scenario = new Scenario([instanceAlice])
+const instanceBob = Config.instance(agentBob, dna)
+const scenario = new Scenario([instanceAlice, instanceBob])
 
-
+/*
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
+  //console.log(register_result)
  //t.true(register_result.Ok.includes('alice'))
 
   const get_profile_result = await alice.callSync('holoster', 'get_member_profile', {agent_address: register_result.Ok})
-  console.log(get_profile_result.Ok)
+  console.log(get_profile_result)
 
    // check for equality of the actual and expected results
   //t.deepEqual(result, { Ok: { App: [ 'my_entry', '{"content":"sample content"}' ] } })
 })
-/*
+
 scenario.runTape("Create_post & get_post by post_address", async(t, { alice }) => {
   // Make a call to a Zome function
   // indicating the function, and passing it an input
@@ -159,22 +161,45 @@ scenario.runTape("Create_post & Comment & update it then get_post_comment by pos
     const commentsAfter = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
     console.log("All post Comments after : ",commentsAfter)
 })
-*/
-/*
-curl -X POST -H "Content-Type: application/json" -d
-{
-    "id": "0",
-    "jsonrpc": "2.0",
-    "method": "call",
-    "params": {
-        "instance_id": "test-instance",
-        "zome": "blog",
-        "function": "create_post",
-        "args": {
-            "content": "sample content"
-        }
-    }
-}
 
-http://127.0.0.1:8888
+scenario.runTape('Can register alice & bob, alice follows bob, check following and followed_by ', async (t, {alice, bob}) => {
+    const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log(register_address1.Ok)
+
+    const register_address2 = await bob.callSync('holoster', 'register', {name: 'bob', avatar_url: ''})
+    console.log(register_address2.Ok)
+
+    const temp = await alice.callSync('holoster', 'follow_user', {agent_address: register_address2.Ok})
+    console.log(temp)
+
+
+    const get_following = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    console.log(get_following)
+
+    const get_followed_by = await bob.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
+    console.log(get_followed_by)
+})
 */
+
+scenario.runTape('Can register alice & bob, alice follows bob, check following then unfollow ', async (t, {alice, bob}) => {
+    const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log(register_address1.Ok)
+
+    const register_address2 = await bob.callSync('holoster', 'register', {name: 'bob', avatar_url: ''})
+    console.log(register_address2.Ok)
+
+    const temp = await alice.callSync('holoster', 'follow_user', {agent_address: register_address2.Ok})
+    console.log(temp)
+
+
+    const get_following_before = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    console.log("before: ")
+    console.log(get_following_before)
+
+    const get_followed_by = await alice.callSync('holoster', 'unfollow_user', {agent_address: register_address2.Ok})
+
+    const get_following_after = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    console.log("after: ")
+    console.log(get_following_after)
+
+})
