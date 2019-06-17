@@ -50,14 +50,15 @@ pub fn handle_delete_post(post_address: Address) -> ZomeApiResult<()>{
     hdk::remove_link(&AGENT_ADDRESS , &post_address , "has_post")?;
     api::remove_entry(&post_address)
 }
-/*
 
-pub fn handle_get_following_posts() -> ZomeApiResult<Vec<Post>>{
+pub fn handle_generate_news_feed() -> ZomeApiResult<Vec<Post>>{
     let following = handle_get_following(AGENT_ADDRESS.to_string().into())?;
+    let mut newsfeed:Vec<Post> = Vec::new();;
+
     for user in &following {
-        let userAddress = get_user_
-        handle_get_user_posts()
+        let mut user_posts = handle_get_user_posts(user.agent_address.to_string().into())?;
+        newsfeed.append(&mut user_posts);
     }
 
-
-}*/
+    Ok(newsfeed)
+}

@@ -179,7 +179,6 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following a
     const get_followed_by = await bob.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
     console.log(get_followed_by)
 })
-*/
 
 scenario.runTape('Can register alice & bob, alice follows bob, check following then unfollow ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
@@ -207,5 +206,25 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following t
     const get_followed_by_after = await alice.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
     console.log(get_followed_by_after)
 
+})
+*/
+scenario.runTape('Can register alice & bob, alice follows bob, bob create post, get newsFeed ', async (t, {alice, bob}) => {
+    const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log(register_address1.Ok)
+    const register_address2 = await bob.callSync('holoster', 'register', {name: 'bob', avatar_url: ''})
+    console.log(register_address2.Ok)
 
+    const temp = await alice.callSync('holoster', 'follow_user', {agent_address: register_address2.Ok})
+    console.log(temp)
+
+
+    const get_following_before = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    console.log(get_following_before)
+
+    let now = Math.floor(Date.now() / 1000)
+    const post1Addr = await bob.callSync("holoster", "create_post", {"content":"This is a post 1" , "timestamp":now})
+    console.log("Post 1 : ",post1Addr)
+
+    const newsfeed = await alice.callSync("holoster", "generate_news_feed", {})
+    console.log(newsfeed)
 })

@@ -115,6 +115,11 @@ define_zome! {
             outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
             handler: member::handlers::handle_get_followed_by
         }
+        generate_news_feed: {
+            inputs: | |,
+            outputs: |result: ZomeApiResult<Vec<post::Post>>|,
+            handler: post::handlers::handle_generate_news_feed
+        }
 	]
 
     traits: {
@@ -133,7 +138,8 @@ define_zome! {
             follow_user,
             unfollow_user,
             get_following,
-            get_followed_by
+            get_followed_by,
+            generate_news_feed
         ]
 	}
  }
