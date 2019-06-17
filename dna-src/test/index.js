@@ -196,10 +196,16 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following t
     console.log("before: ")
     console.log(get_following_before)
 
-    const get_followed_by = await alice.callSync('holoster', 'unfollow_user', {agent_address: register_address2.Ok})
+    const get_followed_by_before = await alice.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
+    console.log(get_followed_by_before);
 
-    const get_following_after = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
+    const unfollow = await alice.callSync('holoster', 'unfollow_user', {agent_address: register_address2.Ok})
+
     console.log("after: ")
+    const get_following_after = await alice.callSync('holoster', 'get_following', {agent_address: register_address1.Ok})
     console.log(get_following_after)
+    const get_followed_by_after = await alice.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
+    console.log(get_followed_by_after)
+
 
 })

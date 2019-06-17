@@ -22,6 +22,7 @@ mod member;
 mod post;
 mod comment;
 mod anchor;
+mod utils;
 
 define_zome! {
 
