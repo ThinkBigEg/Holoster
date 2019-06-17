@@ -96,13 +96,23 @@ define_zome! {
         }
         follow_user: {
             inputs: |agent_address: Address|,
-            outputs: |result: ZomeApiResult<Address>|,
-            handler: comment::handlers::handle_follow_user
+            outputs: |result: ZomeApiResult<bool>|,
+            handler: member::handlers::handle_follow_user
         }
-        unfollow_user: {
+        /*unfollow_user: {
             inputs: |agent_address: Address|,
             outputs: |result: ZomeApiResult<()>|,
-            handler: comment::handlers::handle_unfollow_user
+            handler: member::handlers::handle_unfollow_user
+        }*/
+        get_following: {
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
+            handler: member::handlers::handle_get_following
+        }
+        get_followed_by:{
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
+            handler: member::handlers::handle_get_followed_by
         }
 	]
 
@@ -120,7 +130,9 @@ define_zome! {
             update_comment,
             delete_comment,
             follow_user,
-            unfollow_user
+            //unfollow_user,
+            get_following,
+            get_followed_by
         ]
 	}
  }

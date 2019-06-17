@@ -49,9 +49,9 @@ pub fn profile_definition() -> ValidatingEntryType {
                     Ok(())
                 }
             ),
-            to!(
+            from!(
                 "%agent_id",
-                tag: "following",
+                tag: "is_following",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
@@ -61,9 +61,9 @@ pub fn profile_definition() -> ValidatingEntryType {
                     Ok(())
                 }
             ),
-            from!( //or to
+            from!(
                 "%agent_id",
-                tag: "following",
+                tag: "is_followed_by",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
