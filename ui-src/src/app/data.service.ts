@@ -36,7 +36,7 @@ export class DataService {
   };
 
   createPost = (content: string, timestamp: number) => {
-    const functionName = "post";
+    const functionName = "create_post";
     const params = {
       content: content,
       timestamp: timestamp

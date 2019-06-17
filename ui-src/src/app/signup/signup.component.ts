@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
-//import { connect } from '@holochain/hc-web-client'
+import { connect } from "@holochain/hc-web-client";
 import { DataService } from "../data.service";
 import { computeStyle } from "@angular/animations/browser/src/util";
 import { User } from "../Classes/User";
