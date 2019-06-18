@@ -9,9 +9,16 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { PostsComponent } from "./posts/posts.component";
 import { UsersComponent } from "./users/users.component";
 import { HttpClientModule } from "@angular/common/http";
+import { PostUpdateComponent } from "./post-update/post-update.component";
 
 @NgModule({
-  declarations: [AppComponent, SignupComponent, PostsComponent, UsersComponent],
+  declarations: [
+    AppComponent,
+    SignupComponent,
+    PostsComponent,
+    UsersComponent,
+    PostUpdateComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

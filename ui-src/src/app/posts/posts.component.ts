@@ -4,8 +4,6 @@ import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 //import { connect } from "@holochain/hc-web-client";
 
-import { Observable } from "rxjs";
-
 @Component({
   selector: "app-posts",
   templateUrl: "./posts.component.html",
@@ -13,7 +11,9 @@ import { Observable } from "rxjs";
 })
 export class PostsComponent implements OnInit {
   posts: Object;
+  fakePosts: Object;
   postHash: String;
+  userAddress: String;
 
   constructor(private fb: FormBuilder, private service: DataService) {}
 
@@ -34,9 +34,24 @@ export class PostsComponent implements OnInit {
     console.log(this.postHash);
   };
 
-  updatePost;
+  // Loads user's posts
+  loadPosts = () => {
+    this.service
+      .loadPosts(this.userAddress)
+      .subscribe(data => (this.posts = data));
+  };
+
+  deletePost = postToDelete => {
+    console.log(postToDelete.id + " Post deleted");
+    //This line won't work here, just for demonistration.
+    this.service.deletePost(postToDelete.id);
+  };
 
   ngOnInit() {
-    this.service.getPosts().subscribe(data => (this.posts = data));
+    //this.service.getPosts().subscribe(data => (this.posts = data));
+    this.service.fakeGetPosts().subscribe(data2 => {
+      this.fakePosts = data2;
+    });
+    this.loadPosts();
   }
 }
