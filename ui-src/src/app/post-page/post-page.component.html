@@ -12,7 +12,7 @@
       <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
         aria-describedby="basic-addon2">
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button">
+        <button class="searchButton" type="button">
           <i class="fas fa-search"></i>
         </button>
       </div>
@@ -48,11 +48,7 @@
       </a>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="fas fa-bell fa-fw"></i>
-        <span>Login</span></a>
-    </li>
+
 
     <li class="nav-item">
       <a class="nav-link" href="#">
@@ -73,13 +69,13 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Home</a>
+          <a href="#">Timeline</a>
         </li>
-        <li class="breadcrumb-item active">Timeline</li>
+        <li class="breadcrumb-item active">Post</li>
       </ol>
 
       <!-- Posts-->
-      <div class="col-md-9"style="margin: auto;" >
+      <div class="col-md-9" style="margin: auto;">
         <div class="panel panel-default">
           <div class="panel-body">
             <section class="post-heading">
@@ -103,9 +99,16 @@
               <hr>
               <div class="post-footer-comment-wrapper">
                 <div class="comment-form">
-                  <a routerLink="/post" routerLinkActive="active">Go to post</a>
+
+                  <div class="col-md-12 search">
+                    <input type="text" class="searchTerm" id="SearchTerm" placeholder="Write a comment...">
+                    <button type="submit" class="searchButton">
+                      <i class="fas fa-comment"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
+
             </section>
           </div>
         </div>

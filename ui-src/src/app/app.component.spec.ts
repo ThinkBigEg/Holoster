@@ -19,7 +19,7 @@ describe('AppComponent', () => {
   it(`should have as title 'ui-src'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ui-src');
+    expect(app.title).toEqual('Holoster');
   });
 
   it('should render title in a h1 tag', () => {
