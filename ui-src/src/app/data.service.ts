@@ -1,6 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-
+import { User } from "./Classes/User";
+import { Post } from "./Classes/Post";
+import { Observable, of } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
+import { Result } from "./Classes/Result";
 @Injectable({
   providedIn: "root"
 })
@@ -8,7 +12,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   getPosts = () => {
-    return this.http.get("https://jsonplaceholder.typicode.com/posts");
+    return this.http.get<Post[]>("https://jsonplaceholder.typicode.com/posts");
   };
 
   fakeGetPosts = () => {
@@ -30,11 +34,16 @@ export class DataService {
     return body;
   };
 
-  signUp = (handle: string, avatar: string) => {
+  makeRequest = (params: object, functionName: string) => {
+    let requestBody: object = this.makeBody(functionName, params);
+    return this.http.post<Result>("http://127.0.0.1:8888", requestBody);
+  };
+
+  signUp = (handle: String, avatarlink: String) => {
     const functionName = "register";
     const params = {
       name: handle,
-      avatar_url: avatar
+      avatar_url: avatarlink
     };
     return this.http.post(
       "http://127.0.0.1:8888",

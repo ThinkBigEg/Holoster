@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from "@angular/core";
 import { DataService } from "../data.service";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
-//import { connect } from "@holochain/hc-web-client";
+
+import { Post } from "../Classes/Post";
 
 @Component({
   selector: "app-posts",
@@ -23,10 +24,8 @@ export class PostsComponent implements OnInit {
   });
 
   createPost = () => {
-    this.postForm.controls["timestamp"].setValue(new Date().getTime() / 1000);
-    console.log(this.postForm.get("timestamp").value);
     let content = this.postForm.get("content").value;
-    let timestamp = this.postForm.get("timestamp").value;
+    let timestamp = new Date().getTime() / 1000;
     this.service
       .createPost(content, timestamp)
       .subscribe(data => (this.postHash = JSON.parse(data.result).Ok));

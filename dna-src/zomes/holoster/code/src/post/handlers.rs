@@ -11,6 +11,7 @@ use hdk::holochain_core_types::{
 
 use crate::post::Post;
 use crate::comment::Comment;
+use crate::member::handlers::handle_get_following;
 
 pub fn handle_create_post(content: String, timestamp: u32) -> ZomeApiResult<Address> {
     let post_entry = Entry::App("post".into(),
@@ -24,7 +25,6 @@ pub fn handle_create_post(content: String, timestamp: u32) -> ZomeApiResult<Addr
     Ok(post_entry_address)
 }
 
-// get the post in JSONstring
 pub fn handle_get_post(post_address: Address) -> ZomeApiResult<Option<Entry>> {
     hdk::get_entry(&post_address)
 }
@@ -49,4 +49,16 @@ pub fn handle_update_post(old_post_address: Address , content: String, timestamp
 pub fn handle_delete_post(post_address: Address) -> ZomeApiResult<()>{
     hdk::remove_link(&AGENT_ADDRESS , &post_address , "has_post")?;
     api::remove_entry(&post_address)
+}
+
+pub fn handle_generate_news_feed() -> ZomeApiResult<Vec<Post>>{
+    let following = handle_get_following(AGENT_ADDRESS.to_string().into())?;
+    let mut newsfeed:Vec<Post> = Vec::new();;
+
+    for user in &following {
+        let mut user_posts = handle_get_user_posts(user.agent_address.to_string().into())?;
+        newsfeed.append(&mut user_posts);
+    }
+    newsfeed.sort_by(|a, b| b.timestamp.cmp(&a.timestamp));
+    Ok(newsfeed)
 }

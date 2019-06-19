@@ -6,6 +6,7 @@ import { FormArray } from "@angular/forms";
 //import { connect } from "@holochain/hc-web-client";
 import { DataService } from "../data.service";
 import { computeStyle } from "@angular/animations/browser/src/util";
+import { User } from "../Classes/User";
 
 @Component({
   selector: "app-signup",
@@ -14,7 +15,7 @@ import { computeStyle } from "@angular/animations/browser/src/util";
 })
 export class SignupComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: DataService) {}
-  res: object;
+  user: User;
 
   profileForm = this.fb.group({
     handle: ["", Validators.required],
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit {
     this.service.signUp(handle, avatarLink).subscribe(data => {
       let userHash = JSON.parse(data.result).Ok;
       localStorage.setItem("userHash", userHash);
+      console.log(userHash);
     });
   };
 
