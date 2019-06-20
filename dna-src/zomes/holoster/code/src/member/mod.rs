@@ -28,7 +28,7 @@ pub fn profile_definition() -> ValidatingEntryType {
         name: "profile",
         description: "profile of particular user in the network",
         sharing: Sharing::Public,
-        //native_type: Profile,
+
         validation_package: || {
             hdk::ValidationPackageDefinition::ChainFull
         },
@@ -43,6 +43,30 @@ pub fn profile_definition() -> ValidatingEntryType {
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::ChainFull
+                },
+
+                validation: | _validation_data: hdk::LinkValidationData | {
+                    Ok(())
+                }
+            ),
+            from!(
+                "%agent_id",
+                tag: "is_following",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: | _validation_data: hdk::LinkValidationData | {
+                    Ok(())
+                }
+            ),
+            from!(
+                "%agent_id",
+                tag: "is_followed_by",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
                 },
 
                 validation: | _validation_data: hdk::LinkValidationData | {

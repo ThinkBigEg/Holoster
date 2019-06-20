@@ -21,13 +21,16 @@ use hdk::holochain_core_types::{
 mod member;
 mod post;
 mod comment;
+mod anchor;
+mod utils;
 
 define_zome! {
 
 	entries: [
         member::profile_definition(),
         post::post_definition(),
-        comment::comment_definition()
+        comment::comment_definition(),
+        anchor::anchor_definition()
 	]
 
     genesis: || {
@@ -92,6 +95,31 @@ define_zome! {
             outputs: |result: ZomeApiResult<()>|,
             handler: comment::handlers::handle_delete_comment
         }
+        follow_user: {
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<bool>|,
+            handler: member::handlers::handle_follow_user
+        }
+        unfollow_user: {
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<()>|,
+            handler: member::handlers::handle_unfollow_user
+        }
+        get_following: {
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
+            handler: member::handlers::handle_get_following
+        }
+        get_followed_by:{
+            inputs: |agent_address: Address|,
+            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
+            handler: member::handlers::handle_get_followed_by
+        }
+        generate_news_feed: {
+            inputs: | |,
+            outputs: |result: ZomeApiResult<Vec<post::Post>>|,
+            handler: post::handlers::handle_generate_news_feed
+        }
 	]
 
     traits: {
@@ -106,7 +134,12 @@ define_zome! {
             get_post_comments,
             create_comment,
             update_comment,
-            delete_comment
+            delete_comment,
+            follow_user,
+            unfollow_user,
+            get_following,
+            get_followed_by,
+            generate_news_feed
         ]
 	}
  }
