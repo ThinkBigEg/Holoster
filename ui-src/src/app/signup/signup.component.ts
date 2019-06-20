@@ -29,8 +29,9 @@ export class SignupComponent implements OnInit {
       avatar_url: avatarLink
     };
     this.service.makeRequest(params, "register").subscribe(result => {
-      let hash = JSON.parse(result.result).Ok;
-      this.goToHomePage(hash);
+      let userHash = JSON.parse(result.result).Ok;
+      localStorage.setItem("userHash", userHash);
+      this.goToHomePage(userHash);
     });
   };
 
