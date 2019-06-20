@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
-import { connect } from "@holochain/hc-web-client";
 import { DataService } from "../data.service";
 import { computeStyle } from "@angular/animations/browser/src/util";
 import { User } from "../Classes/User";
@@ -30,8 +29,9 @@ export class SignupComponent implements OnInit {
       avatar_url: avatarLink
     };
     this.service.makeRequest(params, "register").subscribe(result => {
-      let hash = JSON.parse(result.result).Ok;
-      this.goToHomePage(hash);
+      let userHash = JSON.parse(result.result).Ok;
+      localStorage.setItem("userHash", userHash);
+      this.goToHomePage(userHash);
     });
   };
 

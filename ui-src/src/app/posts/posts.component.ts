@@ -1,10 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { DataService } from "../data.service";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
-import { connect } from "@holochain/hc-web-client";
 
-import { Observable } from "rxjs";
 import { Post } from "../Classes/Post";
 
 @Component({
@@ -13,8 +11,10 @@ import { Post } from "../Classes/Post";
   styleUrls: ["./posts.component.css"]
 })
 export class PostsComponent implements OnInit {
-  posts: Post[];
-  postHash: string;
+  posts: Object;
+  fakePosts: Object;
+  postHash: String;
+  @Input() userAddress: String;
 
   constructor(private fb: FormBuilder, private service: DataService) {}
 
@@ -28,12 +28,29 @@ export class PostsComponent implements OnInit {
     let timestamp = new Date().getTime() / 1000;
     this.service
       .createPost(content, timestamp)
-      .subscribe(data => (this.postHash = data.toString()));
+      .subscribe(data => (this.postHash = JSON.parse(data.result).Ok));
 
     console.log(this.postHash);
   };
 
+  // Loads user's posts
+  loadPosts = () => {
+    this.service.loadPosts(this.userAddress).subscribe(data => {
+      let posts = JSON.parse(data.result).Ok;
+      this.posts = posts;
+      console.log(this.posts);
+    });
+  };
+
+  deletePost = postToDelete => {
+    console.log(postToDelete.id + " Post deleted");
+    //This line won't work here, just for demonistration.
+    this.service.deletePost(postToDelete.id);
+  };
+
   ngOnInit() {
-    this.service.getPosts().subscribe(data => (this.posts = data));
+    //this.service.getPosts().subscribe(data => (this.posts = data));
+    this.userAddress = localStorage.getItem("userHash");
+    this.loadPosts();
   }
 }
