@@ -49,12 +49,6 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" routerLink="/signup" routerLinkActive="active">
-        <i class="fas fa-bell fa-fw"></i>
-        <span>Login</span></a>
-    </li>
-
-    <li class="nav-item">
       <a class="nav-link" href="#">
         <i class="fas fa-bell fa-fw"></i>
         <span>Notifications</span></a>
@@ -73,9 +67,9 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Home</a>
+          <a routerLink="/post" routerLinkActive="active">Post</a>
         </li>
-        <li class="breadcrumb-item active">Timeline</li>
+        <li class="breadcrumb-item active">Profile</li>
       </ol>
 
       <!-- Posts-->
@@ -87,7 +81,7 @@
                 <div class="col-md-11">
                   <div class="media">
                     <div class="media-left">
-                      <a routerLink="/userProfile" routerLinkActive="active" class="anchor-username">
+                      <a href="#" class="anchor-username">
                         <h4 class="media-heading">Annonumus User</h4>
                       </a>
                     </div>

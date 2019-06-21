@@ -1,0 +1,20 @@
+<body>
+  <form [formGroup]="profileForm" (ngSubmit)="signUp()">
+    <div class="login-page">
+      <img class="image" src="../../assets/img/logo_transparent.png" />
+      <div class="form">
+        <div class="login-form">
+          <input type="text" placeholder="handle" formControlName="handle" />
+          <input type="text" placeholder="Avatar Link" formControlName="avatar" />
+          <button>
+            login
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!--<a
+    >Go to posts</a
+  >-->
+</body>
