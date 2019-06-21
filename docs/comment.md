@@ -56,3 +56,19 @@ Success: {
 Error: {Err:  {Error Type: 'Error Message'} }
 ```
 
+**Get Comment Address**
+###### Request: 
+``` 
+Endpoint: /get_comment_address
+Arguments: { comment_entry: "Comment entry"}
+```
+
+###### Response: 
+```
+Success: {
+    jsonrpc: "2.0",
+    result: "{"Ok":"comment address"}",
+    id: "0"
+}
+
+Error: {Err:  {Error Type: 'Error Message'} }
