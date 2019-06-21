@@ -1,33 +1,50 @@
 <h1>Posts</h1>
 
 <ul class="form">
-  <li *ngFor="let post of posts$">
-    <a routerLink="">{{ post.title }}</a>
+  <li *ngFor="let post of posts">
+    <a routerLink="">{{ post.content }}</a>
 
-    <p>{{ post.body }}</p>
+    <p>{{ post.timestamp }}</p>
+
+    <button title="delete post" (click)="deletePost(post)">DELETE</button>
+    <br />
+    <button title="edit post" (click)="editPost(post)">EDIT</button>
+  </li>
+</ul>
+
+<ul class="form">
+  <li *ngFor="let post of fakePosts">
+    <a routerLink="">{{ post.hotel_name }}</a>
+
+    <p>{{ post.review_content }}</p>
+    <p>{{ post.time }}</p>
+
+    <button title="delete post" (click)="deletePost(post)">DELETE</button>
+    <br />
+    <a routerLink="/updatePost/{{ post.id }}">
+      UPDATE
+    </a>
   </li>
 </ul>
 
 <h2>Create new post:</h2>
 <br />
-<body>
-  <form [formGroup]="postForm" (ngSubmit)="createPost()">
-    <div class="login-page">
-      <img class="image" src="assets/img/logo_transparent.png" />
-      <div class="form">
-        <div class="login-form">
-          <input
-            type="text"
-            placeholder="What are your thoughts ?"
-            formControlName="content"
-          />
-          <button>Post</button>
-        </div>
+<form [formGroup]="postForm" (ngSubmit)="createPost()">
+  <div class="login-page">
+    <img class="image" src="assets/img/logo_transparent.png" />
+    <div class="form">
+      <div class="login-form">
+        <input
+          type="text"
+          placeholder="What are your thoughts ?"
+          formControlName="content"
+        />
+        <button>Post</button>
       </div>
     </div>
-  </form>
+  </div>
+</form>
 
-  <!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
+<!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
     >Go to posts</a
   >-->
-</body>
