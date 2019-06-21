@@ -22,7 +22,6 @@ mod member;
 mod post;
 mod comment;
 mod anchor;
-mod vote;
 mod utils;
 
 define_zome! {
@@ -31,8 +30,7 @@ define_zome! {
         member::profile_definition(),
         post::post_definition(),
         comment::comment_definition(),
-        anchor::anchor_definition(),
-        vote::vote_definition()
+        anchor::anchor_definition()
 	]
 
     genesis: || {
@@ -142,11 +140,6 @@ define_zome! {
             outputs: |result: ZomeApiResult<Option<Entry>>|,
             handler:  comment::handlers::handle_get_comment
         }
-/*        get_upvote_count:{
-            inputs: |post_address: Address|,
-            outputs: |result: ZomeApiResult<u32>|,
-            handler:  post::handlers::handle_upvote_count
-        }*/
 	]
 
     traits: {
