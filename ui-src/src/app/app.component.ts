@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { PostsComponent } from "./posts/posts.component";
+import { UserProfileComponent } from "./UserProfile/UserProfile.component";
 import { SignupComponent } from "./signup/signup.component";
 import { PostUpdateComponent } from "./post-update/post-update.component";
 

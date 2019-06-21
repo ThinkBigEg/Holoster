@@ -6,7 +6,7 @@ import { AppComponent } from "./app.component";
 import { SignupComponent } from "./signup/signup.component";
 
 import { ReactiveFormsModule } from "@angular/forms";
-import { PostsComponent } from "./posts/posts.component";
+import { UserProfileComponent } from "./UserProfile/UserProfile.component";
 import { UsersComponent } from "./users/users.component";
 import { HttpClientModule } from "@angular/common/http";
 import { PostUpdateComponent } from "./post-update/post-update.component";
@@ -15,7 +15,7 @@ import { PostUpdateComponent } from "./post-update/post-update.component";
   declarations: [
     AppComponent,
     SignupComponent,
-    PostsComponent,
+    UserProfileComponent,
     UsersComponent,
     PostUpdateComponent
   ],
