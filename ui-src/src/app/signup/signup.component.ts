@@ -25,6 +25,7 @@ export class SignupComponent implements OnInit {
   signUp = () => {
     let handle = this.profileForm.get("handle").value;
     let avatarLink = this.profileForm.get("avatar").value;
+<<<<<<< HEAD
     this.service
       .makeRequest({ name: handle, avatar_url: avatarLink }, "register")
       .subscribe(data => {
@@ -32,6 +33,20 @@ export class SignupComponent implements OnInit {
         localStorage.setItem("userHash", userHash);
         localStorage.setItem("userHandle", handle);
       });
+||||||| merged common ancestors
+    this.service.signUp(handle, avatarLink).subscribe(data => {
+      let userHash = JSON.parse(data.result).Ok;
+      localStorage.setItem("userHash", userHash);
+      console.log(userHash);
+    });
+=======
+    this.service
+      .makeRequest({ name: handle, avatar_url: avatarLink }, "register")
+      .subscribe(data => {
+        let userHash = JSON.parse(data.result).Ok;
+        localStorage.setItem("userHash", userHash);
+      });
+>>>>>>> origin/UIPostBugFix
   };
 
   ngOnInit() {}
