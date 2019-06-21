@@ -32,7 +32,7 @@ define_zome! {
         post::post_definition(),
         comment::comment_definition(),
         anchor::anchor_definition(),
-        vote::vote_definition(),
+        vote::vote_definition()
 	]
 
     genesis: || {

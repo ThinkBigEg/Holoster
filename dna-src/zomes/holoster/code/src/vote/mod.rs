@@ -27,22 +27,6 @@ pub fn vote_definition() -> ValidatingEntryType {
         },
 
         validation: |_validation_data: hdk::EntryValidationData<Vote>| {
-            match _validation_data {
-                EntryValidationData::Create{entry:_post,validation_data:_}=>{
-                    if _post.content.is_empty() {
-                        return Err(String::from("Empty Post"));
-                    }
-                    if _post.content.len() > 512{
-                        return Err(String::from("Post too long"));
-                    }
-                }
-                EntryValidationData::Modify{new_entry:_new_post, old_entry:_old_post, old_entry_header:_, validation_data:_} => {
-                        if _new_post.content == _old_post.content {
-                            return Err(String::from("Message unchanged"));
-                        }
-                }
-                EntryValidationData::Delete{old_entry:_old_post,old_entry_header:_,validation_data:_} => (),
-            };
             Ok(())
         },
         links:[
