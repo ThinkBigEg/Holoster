@@ -7,7 +7,9 @@ import { PostPageComponent } from './post-page/post-page.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ReactiveFormsModule } from "@angular/forms";
-import { PostsComponent } from "./posts/posts.component";
+import { UserProfileComponent } from "./UserProfile/UserProfile.component";
+import { UsersComponent } from "./users/users.component";
+
 import { HttpClientModule } from "@angular/common/http";
 import { PostUpdateComponent } from "./post-update/post-update.component";
 import {SignupComponent} from "./signup/signup.component";
@@ -16,10 +18,10 @@ import {SignupComponent} from "./signup/signup.component";
   declarations: [
     AppComponent,
     SignupComponent,
-    PostsComponent,
-    PostUpdateComponent,
-    SidebarComponent,
-    PostPageComponent
+    UserProfileComponent,
+    UsersComponent,
+    PostUpdateComponent
+
   ],
   imports: [
     BrowserModule,

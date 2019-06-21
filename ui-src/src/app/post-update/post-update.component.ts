@@ -35,9 +35,9 @@ export class PostUpdateComponent implements OnInit {
     console.log(id);
 
     //won't work either
-    this.service
-      .updatePost(id.toString(), content, timestamp)
-      .subscribe(data => (this.newPostHash = data.toString()));
+    //this.service
+    //.updatePost(id.toString(), content, timestamp)
+    //.subscribe(data => (this.newPostHash = data.toString()));
 
     console.log(this.newPostHash);
   };

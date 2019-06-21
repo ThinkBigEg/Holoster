@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from "@angular/router";
-import { PostsComponent } from "./posts/posts.component";
+import { UserProfileComponent } from "./UserProfile/UserProfile.component";
 import { SignupComponent } from "./signup/signup.component";
 import { PostUpdateComponent } from "./post-update/post-update.component";
 
@@ -35,8 +35,8 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: "posts",
-    component: PostsComponent
+    path: "myprofile",
+    component: UserProfileComponent
   },
   { path: "updatePost/:id", component: PostUpdateComponent }
 ];

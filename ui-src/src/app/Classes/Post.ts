@@ -8,4 +8,9 @@ export class Post {
   timeStamp: number;
   comments: Comment[];
   votes: Vote[];
+  public constructor(content: string, timeStamp: number, creatorHash: string) {
+    this.content = content;
+    this.timeStamp = timeStamp;
+    this.creatorHash = creatorHash;
+  }
 }
