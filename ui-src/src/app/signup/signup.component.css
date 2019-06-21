@@ -8,14 +8,8 @@
 .form {
   position: relative;
   z-index: 1;
-<<<<<<< HEAD
 
   background: #ffffff;
-||||||| merged common ancestors
-  background: #FFFFFF;
-=======
-  background: #ffffff;
->>>>>>> 5a5d82307ab834988ebbe104171a751df08d2151
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;

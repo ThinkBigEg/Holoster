@@ -59,10 +59,7 @@ export class TimelineComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.user = new User(
-      localStorage.getItem("userHash"),
-      localStorage.getItem("userHandle")
-    );
+    this.user = new User();
     this.user.hash = localStorage.getItem("userHash");
     console.log(this.user.hash);
     this.loadTimeline();

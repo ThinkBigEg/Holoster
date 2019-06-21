@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MyProfileComponent } from "./MyProfile/MyProfile.component";
 
 import { HttpClientModule } from "@angular/common/http";
-import { PostUpdateComponent } from "./post-update/post-update.component";
 import { TimelineComponent } from "./timeline/timeline.component";
 import { SignupComponent } from "./signup/signup.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
@@ -20,12 +19,10 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
     AppComponent,
     SignupComponent,
     UserProfileComponent,
-    PostUpdateComponent,
     TimelineComponent,
     MyProfileComponent,
     SidebarComponent,
     PostPageComponent,
-    PostUpdateComponent,
     UserProfileComponent
   ],
   imports: [

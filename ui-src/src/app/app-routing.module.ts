@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { MyProfileComponent } from "./MyProfile/MyProfile.component";
 import { SignupComponent } from "./signup/signup.component";
-import { PostUpdateComponent } from "./post-update/post-update.component";
 import { TimelineComponent } from "./timeline/timeline.component";
 
 // Import all the components for which navigation service has to be activated
@@ -30,7 +29,6 @@ const routes: Routes = [
     path: "myprofile",
     component: MyProfileComponent
   },
-  { path: "updatePost/:id", component: PostUpdateComponent },
   {
     path: "timeline",
     component: TimelineComponent
