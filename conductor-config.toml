@@ -4,17 +4,17 @@
 
 [[agents]]
 id = "test_agent1"
-name = "HoloTester1"
-public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
-key_file = "holo_tester.key"
+name = "Agent 1"
+public_address = "HcScJtgbFjFvzdvs8gc7K8mTM9rigmnfkjQd5SFS8EVyozwxsRO3UIKGc4wergr"
+keystore_file = "./key1.keystore"
 
 # -----------  DNA  -----------
 
 
 [[dnas]]
 id = "holoster_dna"
-file = "dna/holoster.hcpkg"
-hash = "Qm328wyq38924y"
+file = "./dna/holoster.dna.json"
+hash = "QmTbmvCXENGr8Noksv8VhqyEzafMj6hkGG7snuKd63F86a"
 
 [[instances]]
 id = "holoster_instance"
@@ -29,10 +29,10 @@ path = "tmp-storage"
 
 
 [[interfaces]]
-id = "websocket_interface"
+id = "holoster_http_interface"
 [interfaces.driver]
-type = "websocket"
-port = 3400
+type = "http"
+port = 8888
 [[interfaces.instances]]
 id = "holoster_instance"
 
@@ -46,8 +46,8 @@ hash = "Qm000"
 [[ui_interfaces]]
 id = "ui-interface"
 bundle = "main"
-port = 3000
-dna_interface = "websocket_interface"
+port = 4200
+dna_interface = "holoster_http_interface"
 
 # -----------  Networking  -----------
 
