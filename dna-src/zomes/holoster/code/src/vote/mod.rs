@@ -12,23 +12,21 @@ use hdk::holochain_core_types::{
 pub mod handlers;
 
 #[derive(Serialize, Deserialize, Debug, DefaultJson, Clone)]
-pub struct Post {
-    pub content: String,
+pub struct Vote {
     pub creator_hash: Address,
     pub timestamp: u32,
 }
 
 pub fn vote_definition() -> ValidatingEntryType {
     entry!(
-        name: "post",
-        description: "The Member's post",
+        name: "vote",
+        description: "The Member's vote on a post or comment",
         sharing: Sharing::Public,
-        //native_type: Post,
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
 
-        validation: |_validation_data: hdk::EntryValidationData<Post>| {
+        validation: |_validation_data: hdk::EntryValidationData<Vote>| {
             match _validation_data {
                 EntryValidationData::Create{entry:_post,validation_data:_}=>{
                     if _post.content.is_empty() {
@@ -40,7 +38,7 @@ pub fn vote_definition() -> ValidatingEntryType {
                 }
                 EntryValidationData::Modify{new_entry:_new_post, old_entry:_old_post, old_entry_header:_, validation_data:_} => {
                         if _new_post.content == _old_post.content {
-                            return Err(String::from("Message unchanged"));
+                            return Err(String::from("vote unchanged"));
                         }
                 }
                 EntryValidationData::Delete{old_entry:_old_post,old_entry_header:_,validation_data:_} => (),
