@@ -1,0 +1,15 @@
+<h1>Profile</h1>
+<p>{{ user.handle }}</p>
+
+<h1>Posts</h1>
+
+<ul class="form">
+  <li *ngFor="let post of user.posts">
+    <a routerLink="">{{ post.content }}</a>
+    <p>{{ post.timeStamp }}</p>
+  </li>
+</ul>
+
+<!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
+    >Go to posts</a
+  >-->

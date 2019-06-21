@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
-//import { connect } from "@holochain/hc-web-client";
 import { DataService } from "../data.service";
 import { computeStyle } from "@angular/animations/browser/src/util";
 import { User } from "../Classes/User";
@@ -33,6 +32,7 @@ export class SignupComponent implements OnInit {
         localStorage.setItem("userHash", userHash);
         localStorage.setItem("userHandle", handle);
       });
+<<<<<<< HEAD
 ||||||| merged common ancestors
     this.service.signUp(handle, avatarLink).subscribe(data => {
       let userHash = JSON.parse(data.result).Ok;
@@ -47,6 +47,14 @@ export class SignupComponent implements OnInit {
         localStorage.setItem("userHash", userHash);
       });
 >>>>>>> origin/UIPostBugFix
+||||||| merged common ancestors
+=======
+
+  };
+
+  goToHomePage = (hash: string) => {
+    console.log(hash);
+>>>>>>> 5a5d82307ab834988ebbe104171a751df08d2151
   };
 
   ngOnInit() {}

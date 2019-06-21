@@ -1,25 +1,32 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { SignupComponent } from "./signup/signup.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
+import { PostPageComponent } from "./post-page/post-page.component";
+import { AppRoutingModule } from "./app-routing.module";
 
 import { ReactiveFormsModule } from "@angular/forms";
-import { UserProfileComponent } from "./UserProfile/UserProfile.component";
-import { UsersComponent } from "./users/users.component";
+import { MyProfileComponent } from "./MyProfile/MyProfile.component";
+
 import { HttpClientModule } from "@angular/common/http";
 import { PostUpdateComponent } from "./post-update/post-update.component";
-import { TimelineComponent } from './timeline/timeline.component';
+import { TimelineComponent } from "./timeline/timeline.component";
+import { SignupComponent } from "./signup/signup.component";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     UserProfileComponent,
-    UsersComponent,
     PostUpdateComponent,
-    TimelineComponent
+    TimelineComponent,
+    MyProfileComponent,
+    SidebarComponent,
+    PostPageComponent,
+    PostUpdateComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
