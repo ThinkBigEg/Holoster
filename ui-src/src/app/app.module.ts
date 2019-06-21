@@ -10,6 +10,7 @@ import { PostsComponent } from "./posts/posts.component";
 import { UsersComponent } from "./users/users.component";
 import { HttpClientModule } from "@angular/common/http";
 import { PostUpdateComponent } from "./post-update/post-update.component";
+import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PostUpdateComponent } from "./post-update/post-update.component";
     SignupComponent,
     PostsComponent,
     UsersComponent,
-    PostUpdateComponent
+    PostUpdateComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
