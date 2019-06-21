@@ -41,6 +41,11 @@ pub fn handle_get_member_profile(agent_address: Address) -> ZomeApiResult<Vec<Pr
     get_links_and_load_type(&agent_address, "profile")
 }
 
+pub fn handle_get_my_profile() -> ZomeApiResult<Vec<Profile>>{
+    let profiles = (handle_get_member_profile(AGENT_ADDRESS.to_string().into()))?;
+    Ok(profiles)
+}
+
 pub fn handle_follow_user(agent_address: Address) -> ZomeApiResult<bool> {
     let entry_address1 = utils::get_user_profile_entry(agent_address.clone())?;
     let entry_address2 = utils::get_user_profile_entry(AGENT_ADDRESS.to_string().into())?;

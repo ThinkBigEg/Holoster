@@ -120,12 +120,18 @@ define_zome! {
             outputs: |result: ZomeApiResult<Vec<post::Post>>|,
             handler: post::handlers::handle_generate_news_feed
         }
+        get_my_profile:{
+            inputs: | |,
+            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
+            handler:  member::handlers::handle_get_my_profile
+        }
 	]
 
     traits: {
         hc_public [
             register,
             get_member_profile,
+            get_my_profile,
             create_post,
             get_post,
             get_user_posts,

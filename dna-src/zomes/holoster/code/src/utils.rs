@@ -16,3 +16,4 @@ pub fn get_user_profile_entry(agent_address: Address) -> ZomeApiResult<Address>{
     let entry_address = hdk::entry_address(&profile_entry)?;
     Ok(entry_address)
 }
+
