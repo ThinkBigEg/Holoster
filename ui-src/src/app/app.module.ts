@@ -7,20 +7,22 @@ import { PostPageComponent } from "./post-page/post-page.component";
 import { AppRoutingModule } from "./app-routing.module";
 
 import { ReactiveFormsModule } from "@angular/forms";
-import { UserProfileComponent } from "./UserProfile/UserProfile.component";
+import { MyProfileComponent } from "./MyProfile/MyProfile.component";
 
 import { HttpClientModule } from "@angular/common/http";
 import { PostUpdateComponent } from "./post-update/post-update.component";
 import { SignupComponent } from "./signup/signup.component";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-    UserProfileComponent,
+    MyProfileComponent,
     SidebarComponent,
     PostPageComponent,
-    PostUpdateComponent
+    PostUpdateComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
