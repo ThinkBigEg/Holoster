@@ -31,6 +31,9 @@ pub fn handle_update_comment(old_comment_address: Address , content: String, tim
     api::update_entry(new_comment , &old_comment_address)
 }
 
+pub fn handle_get_comment(comment_address: Address)-> ZomeApiResult<Option<Entry>> {
+    hdk::get_entry(&comment_address)
+}
 
 pub fn handle_delete_comment(post_address: Address , comment_address: Address) -> ZomeApiResult<()>{
     hdk::remove_link(&post_address , &comment_address , "has_comment")?;

@@ -14,14 +14,14 @@ pub mod handlers;
 #[derive(Serialize, Deserialize, Debug, DefaultJson, Clone)]
 pub struct Vote {
     pub creator_hash: Address,
-    pub timestamp: u32,
 }
 
 pub fn vote_definition() -> ValidatingEntryType {
     entry!(
         name: "vote",
-        description: "The Member's vote on a post or comment",
+        description: "The Member's vote on a post or a comment",
         sharing: Sharing::Public,
+
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
@@ -38,7 +38,7 @@ pub fn vote_definition() -> ValidatingEntryType {
                 }
                 EntryValidationData::Modify{new_entry:_new_post, old_entry:_old_post, old_entry_header:_, validation_data:_} => {
                         if _new_post.content == _old_post.content {
-                            return Err(String::from("vote unchanged"));
+                            return Err(String::from("Message unchanged"));
                         }
                 }
                 EntryValidationData::Delete{old_entry:_old_post,old_entry_header:_,validation_data:_} => (),
@@ -48,7 +48,7 @@ pub fn vote_definition() -> ValidatingEntryType {
         links:[
             from!(
                 "%agent_id",
-                tag: "has_post",
+                tag: "up_post",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry

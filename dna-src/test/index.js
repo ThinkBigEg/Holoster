@@ -119,7 +119,7 @@ scenario.runTape("create post & delete it", async(t, { alice }) => {
     const postsAfter = await alice.callSync("holoster", "get_user_posts", {"user_address": userAddr.Ok})
     console.log("All User Posts : ",postsAfter)
 })
-*/
+
 
 scenario.runTape("Create_post & Comment & update it then get_post_comment by post_address", async(t, { alice }) => {
     let now = Math.floor(Date.now() / 1000)
@@ -141,9 +141,6 @@ scenario.runTape("Create_post & Comment & update it then get_post_comment by pos
     console.log("All post Comments after : ",commentsAfter)
 })
 
-
-
-/*
 scenario.runTape("Create_post & Comment & update it then get_post_comment by post_address", async(t, { alice }) => {
     let now = Math.floor(Date.now() / 1000)
     const postAddr = await alice.callSync("holoster", "create_post", {"content":"This is a post" , "timestamp":now})

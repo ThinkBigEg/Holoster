@@ -23,7 +23,7 @@ pub fn post_definition() -> ValidatingEntryType {
         name: "post",
         description: "The Member's post",
         sharing: Sharing::Public,
-        //native_type: Post,
+
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
