@@ -1,34 +1,18 @@
 <h1>Posts</h1>
 
 <ul class="form">
-  <li *ngFor="let post of user.posts">
-    <a routerLink="">{{ post.content }}</a>
-
-    <p>{{ post.timestamp }}</p>
-
-    <button title="delete post" (click)="deletePost(post)">DELETE</button>
-    <br />
-    <button title="edit post" (click)="editPost(post)">EDIT</button>
+  <li *ngFor="let post of followedUsersPosts">
+    <p>Created by {{ post.creator_hash }} at {{ post.timeStamp }}</p>
+    <p>{{ post.content }}</p>
+    <button (click)="loadComments(post)">See Comments</button>
+    <ul *ngIf="post.showComments == true">
+      <li *ngFor="let comment of post.Comments">
+        <p>Created by {{ comment.creatorHash }} at {{ comment.timeStamp }}</p>
+        <p>{{ comment.content }}</p>
+      </li>
+    </ul>
   </li>
 </ul>
-
-<h2>Create new post:</h2>
-<br />
-<form [formGroup]="postForm" (ngSubmit)="createPost()">
-  <div class="login-page">
-    <img class="image" src="assets/img/logo_transparent.png" />
-    <div class="form">
-      <div class="login-form">
-        <input
-          type="text"
-          placeholder="What are your thoughts ?"
-          formControlName="content"
-        />
-        <button>Post</button>
-      </div>
-    </div>
-  </div>
-</form>
 
 <!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
     >Go to posts</a

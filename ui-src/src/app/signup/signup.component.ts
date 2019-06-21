@@ -30,6 +30,7 @@ export class SignupComponent implements OnInit {
       .subscribe(data => {
         let userHash = JSON.parse(data.result).Ok;
         localStorage.setItem("userHash", userHash);
+        localStorage.setItem("userHandle", handle);
       });
   };
 

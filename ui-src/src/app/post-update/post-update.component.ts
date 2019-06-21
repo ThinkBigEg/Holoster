@@ -24,21 +24,4 @@ export class PostUpdateComponent implements OnInit {
   });
 
   ngOnInit() {}
-
-  updatePost = () => {
-    this.postForm.controls["timestamp"].setValue(new Date().getTime() / 1000);
-    console.log(this.postForm.get("timestamp").value);
-    let content = this.postForm.get("content").value;
-    let timestamp = this.postForm.get("timestamp").value;
-    const id = +this.route.snapshot.paramMap.get("id");
-
-    console.log(id);
-
-    //won't work either
-    this.service
-      .updatePost(id.toString(), content, timestamp)
-      .subscribe(data => (this.newPostHash = data.toString()));
-
-    console.log(this.newPostHash);
-  };
 }

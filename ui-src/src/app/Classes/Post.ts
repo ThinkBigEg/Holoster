@@ -8,4 +8,11 @@ export class Post {
   timeStamp: number;
   comments: Comment[];
   votes: Vote[];
+  showComments: Boolean = false;
+
+  constructor(content: string, creatorhash: string, timeStamp: number) {
+    this.content = content;
+    this.creatorHash = creatorhash;
+    this.timeStamp = timeStamp;
+  }
 }

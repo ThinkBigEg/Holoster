@@ -207,7 +207,7 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following t
     console.log(get_followed_by_after)
 
 })
-*/
+
 scenario.runTape('Can register alice & bob, alice follows bob, bob create post, get newsFeed ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
     console.log(register_address1.Ok)
@@ -228,4 +228,13 @@ scenario.runTape('Can register alice & bob, alice follows bob, bob create post, 
 
     const newsfeed = await alice.callSync("holoster", "generate_news_feed", {})
     console.log(newsfeed)
+})
+*/
+
+scenario.runTape('Can register alice return profiles , empty parameter ', async (t, {alice}) => {
+    const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    const profile = await alice.callSync('holoster','get_my_profile',{});
+    console.log(register_address1.Ok)
+    console.log(profile)
+
 })
