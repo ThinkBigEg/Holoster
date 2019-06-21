@@ -2,7 +2,7 @@
 
 .login-page {
   width: 360px;
-  padding: 8% 0 0;
+  padding: 8% 0 8%;
   margin: auto;
 }
 .form {
@@ -97,11 +97,11 @@
   margin-top: -150px;
 }
 body {
-  background: #c1eaf2; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #c1eaf2, #c1eaf2);
-  background: -moz-linear-gradient(right, #c1eaf2, #c1eaf2);
-  background: -o-linear-gradient(right, #c1eaf2, #c1eaf2);
-  background: linear-gradient(to left, #c1eaf2, #c1eaf2);
+  background: #6c757d; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #6c757d, #6c757d);
+  background: -moz-linear-gradient(right, #6c757d, #6c757d);
+  background: -o-linear-gradient(right, #6c757d, #6c757d);
+  background: linear-gradient(to left, #6c757d, #6c757d);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

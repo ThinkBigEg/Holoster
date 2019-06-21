@@ -6,7 +6,7 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { PostPageComponent } from "./post-page/post-page.component";
 import { AppRoutingModule } from "./app-routing.module";
 
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MyProfileComponent } from "./MyProfile/MyProfile.component";
 
 import { HttpClientModule } from "@angular/common/http";
@@ -29,7 +29,8 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
