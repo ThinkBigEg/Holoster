@@ -8,7 +8,7 @@ const instanceAlice = Config.instance(agentAlice, dna)
 const instanceBob = Config.instance(agentBob, dna)
 const scenario = new Scenario([instanceAlice, instanceBob])
 
-/*
+
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
   //console.log(register_result)
@@ -236,4 +236,4 @@ scenario.runTape('Can register alice return profiles , empty parameter ', async 
     console.log(profile)
 
 })
-*/
+
