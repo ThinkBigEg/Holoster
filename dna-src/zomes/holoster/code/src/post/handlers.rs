@@ -62,19 +62,9 @@ pub fn handle_generate_news_feed() -> ZomeApiResult<Vec<Post>>{
     newsfeed.sort_by(|a, b| b.timestamp.cmp(&a.timestamp));
     Ok(newsfeed)
 }
-<<<<<<< HEAD
 
 pub fn handle_get_post_address(post_entry: Post) -> ZomeApiResult<Address> {
     let post_entry = Entry::App("Post".into() , post_entry.into());
     let entry_address = hdk::entry_address(&post_entry)?;
     Ok(entry_address)
 }
-||||||| merged common ancestors
-=======
-
-pub fn handle_get_post_address(post_entry: Post) -> ZomeApiResult<Addrss> {
-    let post_entry = Entry::App("Post".into() , post_entry.into());
-    let entry_address = hdk::entry_address(&post_entry)?;
-    Ok(entry_address)
-}
->>>>>>> 5a5d82307ab834988ebbe104171a751df08d2151

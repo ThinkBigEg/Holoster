@@ -120,7 +120,6 @@ define_zome! {
             outputs: |result: ZomeApiResult<Vec<post::Post>>|,
             handler: post::handlers::handle_generate_news_feed
         }
-<<<<<<< HEAD
         get_my_profile:{
             inputs: | |,
             outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
@@ -136,14 +135,6 @@ define_zome! {
             outputs: |result: ZomeApiResult<Address>|,
             handler:  comment::handlers::handle_get_comment_address
         }
-||||||| merged common ancestors
-=======
-        get_my_profile:{
-            inputs: | |,
-            outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
-            handler:  member::handlers::handle_get_my_profile
-        }
->>>>>>> 5a5d82307ab834988ebbe104171a751df08d2151
 	]
 
     traits: {

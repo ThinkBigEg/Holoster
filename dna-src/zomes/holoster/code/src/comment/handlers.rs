@@ -36,19 +36,9 @@ pub fn handle_delete_comment(post_address: Address , comment_address: Address) -
     hdk::remove_link(&post_address , &comment_address , "has_comment")?;
     api::remove_entry(&comment_address)
 }
-<<<<<<< HEAD
 
 pub fn handle_get_comment_address(comment_entry: Comment) -> ZomeApiResult<Address> {
     let comment_entry = Entry::App("Comment".into() , comment_entry.into());
     let entry_address = hdk::entry_address(&comment_entry)?;
     Ok(entry_address)
 }
-||||||| merged common ancestors
-=======
-
-pub fn handle_get_comment_address(comment_entry: Comment) -> ZomeApiResult<Addrss> {
-    let comment_entry = Entry::App("Comment".into() , comment_entry.into());
-    let entry_address = hdk::entry_address(&comment_entry)?;
-    Ok(entry_address)
-}
->>>>>>> 5a5d82307ab834988ebbe104171a751df08d2151
