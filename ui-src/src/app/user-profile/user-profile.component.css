@@ -10953,8 +10953,38 @@ body{
     font-size:1.2rem;
 }
 
+.followColor{
+  color:rgb(65, 98, 161);
+  font-size:1.2rem;
+}
+
 .post-footer-comment-wrapper{
     background-color:#F6F7F8;
+}
+
+.image {
+  height: 150px;
+  margin-top: 20px;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #47649F;
+  border-right: none;
+  padding: 15px;
+  height: 38px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #47649F;
 }
 
 .searchButton {
@@ -10967,4 +10997,16 @@ body{
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 22px;
+}
+.VoteButton {
+  width: 40px;
+  height: 38px;
+  border: 1px solid #47649F;
+  background: #47649F;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  font-size: 22px;
+  margin-left: 5px;
 }

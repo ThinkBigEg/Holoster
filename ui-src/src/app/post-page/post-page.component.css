@@ -10950,7 +10950,7 @@ body{
 
 .anchor-time{
     color:#ADB2BB;
-    font-size:1.2rem;
+    font-size:1.5rem;
 }
 
 .post-footer-comment-wrapper{
@@ -10988,4 +10988,16 @@ body{
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 22px;
+}
+.VoteButton {
+  width: 40px;
+  height: 38px;
+  border: 1px solid #47649F;
+  background: #47649F;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  font-size: 22px;
+  margin-left: 5px;
 }
