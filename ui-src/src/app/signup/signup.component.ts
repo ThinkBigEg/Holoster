@@ -6,6 +6,7 @@ import { FormArray } from "@angular/forms";
 import { DataService } from "../data.service";
 import { computeStyle } from "@angular/animations/browser/src/util";
 import { User } from "../Classes/User";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-signup",
@@ -13,7 +14,11 @@ import { User } from "../Classes/User";
   styleUrls: ["./signup.component.css"]
 })
 export class SignupComponent implements OnInit {
-  constructor(private fb: FormBuilder, private service: DataService) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: DataService,
+    private router: Router
+  ) {}
   user: User;
 
   profileForm = this.fb.group({
@@ -37,5 +42,12 @@ export class SignupComponent implements OnInit {
     console.log(hash);
   };
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.service.makeRequest({}, "get_my_profile").subscribe(data => {
+      let users = JSON.parse(data.result).Ok;
+      if (users.length > 0) {
+        this.router.navigate(["home"]);
+      }
+    });
+  }
 }

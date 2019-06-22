@@ -1,18 +1,43 @@
-<h1>Posts</h1>
-
-<ul class="form">
-  <li *ngFor="let post of followedUsersPosts">
-    <p>Created by {{ post.creator_hash }} at {{ post.timeStamp }}</p>
-    <p>{{ post.content }}</p>
-    <button (click)="loadComments(post)">See Comments</button>
-    <ul *ngIf="post.showComments == true">
-      <li *ngFor="let comment of post.Comments">
-        <p>Created by {{ comment.creatorHash }} at {{ comment.timeStamp }}</p>
-        <p>{{ comment.content }}</p>
-      </li>
-    </ul>
-  </li>
-</ul>
+<li *ngFor="let post of followedUsersPosts">
+  <div class="col-md-9" style="margin: auto;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <section class="post-heading">
+          <div class="row">
+            <div class="col-md-11">
+              <div class="media">
+                <div class="media-left">
+                  <a
+                    routerLink="/user/{{ post.creatorHash }}"
+                    routerLinkActive="active"
+                    class="anchor-username"
+                  >
+                    <h4 class="media-heading">
+                      {{ post.creatorHash }}
+                    </h4>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="post-body">
+          <label id="PostBody">{{ post.content }}</label>
+        </section>
+        <section class="post-footer">
+          <hr />
+          <div class="post-footer-comment-wrapper">
+            <div class="comment-form">
+              <a routerLink="/post/{{ post.hash }}" routerLinkActive="active"
+                >Go to post</a
+              >
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</li>
 
 <!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
     >Go to posts</a

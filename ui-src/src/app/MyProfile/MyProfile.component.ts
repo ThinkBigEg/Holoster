@@ -23,18 +23,20 @@ export class MyProfileComponent implements OnInit {
 
   createPost = () => {
     let content = this.postForm.get("content").value;
-    let timestamp = new Date().getTime() / 1000;
-    let params = { content: content, timestamp: Math.floor(timestamp) };
+    let timestamp = Date.now();
+    let params = { content: content, timestamp: Math.floor(timestamp / 1000) };
     this.service.makeRequest(params, "create_post").subscribe(data => {
       let createdPostHash = JSON.parse(data.result).Ok;
       this.service
         .makeRequest({ post_address: createdPostHash }, "get_post")
         .subscribe(data => {
+          console.log(data);
           let post: Post = JSON.parse(data.result).Ok;
+          console.log(post);
           this.user.posts.push(post);
         });
     });
-    location.reload();
+    // location.reload();
   };
 
   deletePost = (post: Post) => {
@@ -46,6 +48,7 @@ export class MyProfileComponent implements OnInit {
       }
     };
     this.service.makeRequest(postData, "get_post_address").subscribe(data => {
+      console.log(postData);
       let postHash = JSON.parse(data.result).Ok;
       this.service
         .makeRequest({ post_address: postHash }, "delete_post")
@@ -62,7 +65,12 @@ export class MyProfileComponent implements OnInit {
         let posts = JSON.parse(data.result).Ok;
         posts.forEach(element => {
           this.user.posts.push(
-            new Post(element.content, element.timestamp, element.creator_hash)
+            new Post(
+              element.content,
+              element.timestamp,
+              element.creator_hash,
+              element.hash
+            )
           );
         });
       });
@@ -80,6 +88,7 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = new User();
+    this.user.posts = [];
     this.user.hash = localStorage.getItem("userHash");
     this.getUserData();
     this.loadPosts();

@@ -19,10 +19,10 @@ const routes: Routes = [
   { path: "home", component: SidebarComponent },
   { path: "user/:id", component: UserProfileComponent },
 
-  { path: "post", component: PostPageComponent },
+  { path: "post/:id", component: PostPageComponent },
 
   {
-    path: "login",
+    path: "signup",
     component: SignupComponent
   },
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: "**", // If no matching route found, go back to home route
-    component: SidebarComponent
+    component: SignupComponent
   }
 ];
 

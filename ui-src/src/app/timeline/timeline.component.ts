@@ -1,20 +1,17 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DataService } from "../data.service";
-import { FormBuilder } from "@angular/forms";
-import { Validators } from "@angular/forms";
 
 import { Post } from "../Classes/Post";
 import { User } from "../Classes/User";
-import { Comment } from "../Classes/Comment";
 
 @Component({
   selector: "app-timeline",
   templateUrl: "./timeline.component.html",
-  styleUrls: ["./timeline.component.css"]
+  styleUrls: ["./timeline.component.css", "../sidebar/sidebar.component.css"]
 })
 export class TimelineComponent implements OnInit {
   user: User;
-  followedUsersPosts: Post[] = [];
+  followedUsersPosts: Post[];
   constructor(private service: DataService) {}
 
   loadTimeline = () => {
@@ -22,46 +19,29 @@ export class TimelineComponent implements OnInit {
       console.log(data);
       let following = JSON.parse(data.result).Ok;
       following.forEach(element => {
-        this.followedUsersPosts.push(
-          new Post(element.content, element.creator_hash, element.timestamp)
+        let post = new Post(
+          element.content,
+          element.creator_hash,
+          element.timestamp,
+          element.hash
         );
+        post.hash = element.hash;
+        this.followedUsersPosts.push(post);
       });
     });
   };
 
-  loadComments = (post: Post) => {
-    let postData = {
-      post_entry: {
-        content: post.content,
-        creator_hash: post.creatorHash,
-        timestamp: post.timeStamp
-      }
-    };
-    this.service.makeRequest(postData, "get_post_address").subscribe(data => {
-      let postHash = JSON.parse(data.result).Ok;
-      this.service
-        .makeRequest({ post_address: postHash }, "get_post_comments")
-        .subscribe(data => {
-          console.log(data);
-          let comments = JSON.parse(data.result).Ok;
-          comments.forEach(element => {
-            post.comments.push(
-              new Comment(
-                element.content,
-                element.timestamp,
-                element.creator_hash
-              )
-            );
-          });
-        });
-    });
-    console.log(post.comments);
-  };
-
   ngOnInit() {
     this.user = new User();
+    this.followedUsersPosts = [];
+    let post = new Post(
+      "qaqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilqabilbil",
+      38383838,
+      "1929292",
+      "temp hash"
+    );
+    this.followedUsersPosts.push(post);
     this.user.hash = localStorage.getItem("userHash");
-    console.log(this.user.hash);
     this.loadTimeline();
   }
 }

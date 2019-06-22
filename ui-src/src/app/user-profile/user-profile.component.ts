@@ -19,9 +19,13 @@ export class UserProfileComponent implements OnInit {
       .subscribe(data => {
         let posts = JSON.parse(data.result).Ok;
         posts.forEach(element => {
-          console.log(element);
           this.user.posts.push(
-            new Post(element.content, element.timestamp, element.creator_hash)
+            new Post(
+              element.content,
+              element.timestamp,
+              element.creator_hash,
+              element.hash
+            )
           );
         });
       });
