@@ -125,6 +125,21 @@ define_zome! {
             outputs: |result: ZomeApiResult<Vec<member::Profile>>|,
             handler:  member::handlers::handle_get_my_profile
         }
+        get_post_address:{
+            inputs: | post_entry: post::Post|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler:  post::handlers::handle_get_post_address
+        }
+        get_comment_address:{
+            inputs: | comment_entry: comment::Comment|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler:  comment::handlers::handle_get_comment_address
+        }
+        get_comment:{
+            inputs: | comment_address: Address|,
+            outputs: |result: ZomeApiResult<Option<Entry>>|,
+            handler:  comment::handlers::handle_get_comment
+        }
 	]
 
     traits: {
@@ -145,7 +160,10 @@ define_zome! {
             unfollow_user,
             get_following,
             get_followed_by,
-            generate_news_feed
+            generate_news_feed,
+            get_post_address,
+            get_comment_address,
+            get_comment
         ]
 	}
  }

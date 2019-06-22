@@ -63,7 +63,7 @@ pub fn handle_generate_news_feed() -> ZomeApiResult<Vec<Post>>{
     Ok(newsfeed)
 }
 
-pub fn handle_get_post_address(post_entry: Post) -> ZomeApiResult<Addrss> {
+pub fn handle_get_post_address(post_entry: Post) -> ZomeApiResult<Address> {
     let post_entry = Entry::App("Post".into() , post_entry.into());
     let entry_address = hdk::entry_address(&post_entry)?;
     Ok(entry_address)
