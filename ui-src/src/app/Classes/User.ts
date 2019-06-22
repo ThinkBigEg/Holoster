@@ -4,5 +4,5 @@ export class User {
   hash: string;
   handle: string;
   avatarURL: string;
-  posts: Post[] = [];
+  posts: Post[];
 }

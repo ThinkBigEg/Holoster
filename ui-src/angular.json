@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ui-src": {
+    "holoster": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ui-src",
+            "outputPath": "dist/holoster",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,15 +23,9 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/js/bootstrap.bundle.min.js",
-              "src/assets/js/jquery.min.js"
-            ],
+            "scripts": [],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -64,18 +58,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ui-src:build"
+            "browserTarget": "holoster:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ui-src:build:production"
+              "browserTarget": "holoster:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ui-src:build"
+            "browserTarget": "holoster:build"
           }
         },
         "test": {
@@ -109,7 +103,7 @@
         }
       }
     },
-    "ui-src-e2e": {
+    "holoster-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -118,11 +112,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ui-src:serve"
+            "devServerTarget": "holoster:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ui-src:serve:production"
+              "devServerTarget": "holoster:serve:production"
             }
           }
         },
@@ -138,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "ui-src"
+  "defaultProject": "holoster"
 }

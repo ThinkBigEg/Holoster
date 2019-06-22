@@ -1,8 +1,5 @@
 import { Component } from "@angular/core";
-import { UserProfileComponent } from "./UserProfile/UserProfile.component";
 import { SignupComponent } from "./signup/signup.component";
-import { PostUpdateComponent } from "./post-update/post-update.component";
-
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",

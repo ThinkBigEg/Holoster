@@ -8,10 +8,10 @@ import { User } from "../Classes/User";
 
 @Component({
   selector: "app-posts",
-  templateUrl: "./UserProfile.component.html",
-  styleUrls: ["./UserProfile.component.css"]
+  templateUrl: "./MyProfile.component.html",
+  styleUrls: ["./MyProfile.component.css"]
 })
-export class UserProfileComponent implements OnInit {
+export class MyProfileComponent implements OnInit {
   user: User;
 
   constructor(private fb: FormBuilder, private service: DataService) {}
@@ -49,7 +49,7 @@ export class UserProfileComponent implements OnInit {
       let postHash = JSON.parse(data.result).Ok;
       this.service
         .makeRequest({ post_address: postHash }, "delete_post")
-        .subscribe(data => {
+        .subscribe(() => {
           this.user.posts = this.user.posts.filter(obj => obj !== post);
         });
     });

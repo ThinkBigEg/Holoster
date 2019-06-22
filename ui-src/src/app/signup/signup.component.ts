@@ -24,13 +24,13 @@ export class SignupComponent implements OnInit {
   signUp = () => {
     let handle = this.profileForm.get("handle").value;
     let avatarLink = this.profileForm.get("avatar").value;
+
     this.service
       .makeRequest({ name: handle, avatar_url: avatarLink }, "register")
       .subscribe(data => {
         let userHash = JSON.parse(data.result).Ok;
         localStorage.setItem("userHash", userHash);
       });
-
   };
 
   goToHomePage = (hash: string) => {
