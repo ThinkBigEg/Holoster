@@ -17,8 +17,7 @@ export class MyProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: DataService) {}
 
   postForm = this.fb.group({
-    content: ["", Validators.required],
-    timestamp: ["", Validators.required]
+    content: ["", Validators.required]
   });
 
   createPost = () => {
@@ -30,9 +29,7 @@ export class MyProfileComponent implements OnInit {
       this.service
         .makeRequest({ post_address: createdPostHash }, "get_post")
         .subscribe(data => {
-          console.log(data);
-          let post: Post = JSON.parse(data.result).Ok;
-          console.log(post);
+          let post: Post = JSON.parse(JSON.parse(data.result).Ok.App[1]);
           this.user.posts.push(post);
         });
     });
@@ -40,22 +37,23 @@ export class MyProfileComponent implements OnInit {
   };
 
   deletePost = (post: Post) => {
-    let postData = {
-      post_entry: {
-        content: post.content,
-        creator_hash: this.user.hash,
-        timestamp: post.timeStamp
-      }
+    let post_entry = {
+      content: post.content,
+      creator_hash: this.user.hash,
+      timestamp: post.timeStamp
     };
-    this.service.makeRequest(postData, "get_post_address").subscribe(data => {
-      console.log(postData);
-      let postHash = JSON.parse(data.result).Ok;
-      this.service
-        .makeRequest({ post_address: postHash }, "delete_post")
-        .subscribe(() => {
-          this.user.posts = this.user.posts.filter(obj => obj !== post);
-        });
-    });
+
+    this.service
+      .makeRequest({ post_entry }, "get_post_address")
+      .subscribe(data => {
+        let postHash = JSON.parse(data.result).Ok;
+        console.log(data);
+        this.service
+          .makeRequest({ post_address: postHash }, "delete_post")
+          .subscribe(() => {
+            this.user.posts = this.user.posts.filter(obj => obj !== post);
+          });
+      });
   };
 
   loadPosts = () => {
@@ -89,6 +87,9 @@ export class MyProfileComponent implements OnInit {
   ngOnInit() {
     this.user = new User();
     this.user.posts = [];
+    this.user.posts.push(
+      new Post("This is a post", Date.now() / 1000, this.user.hash, "posthash")
+    );
     this.user.hash = localStorage.getItem("userHash");
     this.getUserData();
     this.loadPosts();
