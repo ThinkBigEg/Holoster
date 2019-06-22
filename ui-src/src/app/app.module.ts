@@ -9,6 +9,7 @@ import { PostPageComponent } from './post-page/post-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SidebarComponent,
     PostPageComponent,
     SignupComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -10998,8 +10998,8 @@ body{
   cursor: pointer;
   font-size: 22px;
 }
-.VoteButton {
-  width: 40px;
+.ActionButton {
+  width: 80px;
   height: 38px;
   border: 1px solid #47649F;
   background: #47649F;
@@ -11007,6 +11007,6 @@ body{
   color: #fff;
   border-radius: 5px 5px 5px 5px;
   cursor: pointer;
-  font-size: 22px;
-  margin-left: 5px;
+  font-size: 15px;
+  margin-bottom: 5px;
 }
