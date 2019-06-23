@@ -55,6 +55,8 @@ pub fn handle_generate_news_feed() -> ZomeApiResult<Vec<Post>>{
     let following = handle_get_following(AGENT_ADDRESS.to_string().into())?;
     let mut newsfeed:Vec<Post> = Vec::new();;
 
+
+
     for user in &following {
         let mut user_posts = handle_get_user_posts(user.agent_address.to_string().into())?;
         newsfeed.append(&mut user_posts);

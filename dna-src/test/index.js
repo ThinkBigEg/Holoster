@@ -8,6 +8,7 @@ const instanceAlice = Config.instance(agentAlice, dna)
 const instanceBob = Config.instance(agentBob, dna)
 const scenario = new Scenario([instanceAlice, instanceBob])
 
+/*
 
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
@@ -159,7 +160,7 @@ scenario.runTape("Create_post & Comment & update it then get_post_comment by pos
     const commentsAfter = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
     console.log("All post Comments after : ",commentsAfter)
 })
-
+*/
 scenario.runTape('Can register alice & bob, alice follows bob, check following and followed_by ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
     console.log(register_address1.Ok)
@@ -177,7 +178,7 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following a
     const get_followed_by = await bob.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
     console.log(get_followed_by)
 })
-
+/*
 scenario.runTape('Can register alice & bob, alice follows bob, check following then unfollow ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
     console.log(register_address1.Ok)
@@ -237,3 +238,4 @@ scenario.runTape('Can register alice return profiles , empty parameter ', async 
 
 })
 
+*/
