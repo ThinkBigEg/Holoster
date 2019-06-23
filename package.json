@@ -4,7 +4,7 @@
   "description": "A Social Network application",
   "main": "index.js",
   "scripts": {
-    "hc:build": "mkdir -p dna && cd dna-src && hc package --strip-meta -o ../dna/holoster.dna.json",
+    "hc:build": "rm -rf tmp-storage && mkdir -p dna && cd dna-src && hc package --strip-meta -o ../dna/holoster.dna.json",
     "hc:start": "holochain -c ./conductor-config.toml",
     "hc:startAgent1": "holochain -c ./conductor-config-agent_1.toml",
     "hc:startAgent2": "holochain -c ./conductor-config-agent_2.toml"
