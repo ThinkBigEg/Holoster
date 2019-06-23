@@ -106,11 +106,13 @@
                   <div class="media">
                     <div class="media-left">
                       <a
-                        routerLink="/user/{{ post.creatorHash }}"
+                        routerLink="/user/{{ post.creator.hash }}"
                         routerLinkActive="active"
                         class="anchor-username"
                       >
-                        <h4 class="media-heading">{{ post.creatorHash }}</h4>
+                        <h4 class="media-heading">
+                          {{ post.creator.handle }}
+                        </h4>
                       </a>
                     </div>
                   </div>
@@ -124,17 +126,18 @@
               <hr />
               <div class="post-footer-comment-wrapper">
                 <div class="comment-form">
-                  <div class="anchor-time">
-                    <label>comments here...</label>
+                  <ol *ngFor="let comment of post.comments">
+                    <div class="anchor-time">
+                      <label>{{ comment.content }}</label>
 
-                    <div class="col-md-2">
-                      <button class="VoteButton">+</button>
-                      <button class="VoteButton">-</button>
+                      <div class="col-md-2">
+                        <button class="VoteButton">+</button>
+                        <button class="VoteButton">-</button>
+                      </div>
+
+                      <hr />
                     </div>
-
-                    <hr />
-                  </div>
-
+                  </ol>
                   <div class="col-md-12 search">
                     <input
                       type="text"
@@ -161,13 +164,13 @@
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
-      <footer class="sticky-footer">
+      <!-- <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright © Your Website 2019</span>
           </div>
         </div>
-      </footer>
+      </footer> -->
     </div>
     <!-- /.content-wrapper -->
   </div>

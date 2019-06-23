@@ -5,6 +5,7 @@ import { Validators } from "@angular/forms";
 
 import { Post } from "../Classes/Post";
 import { User } from "../Classes/User";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-posts",
@@ -14,7 +15,11 @@ import { User } from "../Classes/User";
 export class MyProfileComponent implements OnInit {
   user: User;
 
-  constructor(private fb: FormBuilder, private service: DataService) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: DataService,
+    private router: Router
+  ) {}
 
   postForm = this.fb.group({
     content: ["", Validators.required]
@@ -22,6 +27,7 @@ export class MyProfileComponent implements OnInit {
 
   createPost = () => {
     let content = this.postForm.get("content").value;
+    if (content.length == 0) return;
     let timestamp = Date.now();
     let params = { content: content, timestamp: Math.floor(timestamp / 1000) };
     this.service.makeRequest(params, "create_post").subscribe(data => {
@@ -30,29 +36,20 @@ export class MyProfileComponent implements OnInit {
         .makeRequest({ post_address: createdPostHash }, "get_post")
         .subscribe(data => {
           let post: Post = JSON.parse(JSON.parse(data.result).Ok.App[1]);
+          post.creator = this.user;
+          post.hash = createdPostHash;
           this.user.posts.push(post);
         });
     });
-    // location.reload();
   };
 
   deletePost = (post: Post) => {
-    let post_entry = {
-      content: post.content,
-      creator_hash: this.user.hash,
-      timestamp: post.timeStamp
-    };
+    console.log(post.hash);
 
     this.service
-      .makeRequest({ post_entry }, "get_post_address")
-      .subscribe(data => {
-        let postHash = JSON.parse(data.result).Ok;
-        console.log(data);
-        this.service
-          .makeRequest({ post_address: postHash }, "delete_post")
-          .subscribe(() => {
-            this.user.posts = this.user.posts.filter(obj => obj !== post);
-          });
+      .makeRequest({ post_address: post.hash }, "delete_post")
+      .subscribe(() => {
+        this.user.posts = this.user.posts.filter(obj => obj !== post);
       });
   };
 
@@ -62,14 +59,19 @@ export class MyProfileComponent implements OnInit {
       .subscribe(data => {
         let posts = JSON.parse(data.result).Ok;
         posts.forEach(element => {
-          this.user.posts.push(
-            new Post(
-              element.content,
-              element.timestamp,
-              element.creator_hash,
-              element.hash
-            )
-          );
+          let post: Post;
+          this.service
+            .makeRequest(element, "get_post_address")
+            .subscribe(data => {
+              let address = JSON.parse(data.result).Ok;
+              post = new Post(
+                element.content,
+                element.timestamp,
+                this.user,
+                address
+              );
+              this.user.posts.push(post);
+            });
         });
       });
   };
@@ -85,13 +87,17 @@ export class MyProfileComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.user = new User();
-    this.user.posts = [];
-    this.user.posts.push(
-      new Post("This is a post", Date.now() / 1000, this.user.hash, "posthash")
-    );
-    this.user.hash = localStorage.getItem("userHash");
-    this.getUserData();
-    this.loadPosts();
+    this.service.makeRequest({}, "get_my_profile").subscribe(data => {
+      let users = JSON.parse(data.result).Ok;
+      if (users.length == 0) {
+        this.router.navigate(["signup"]);
+      } else {
+        this.user = new User();
+        this.user.posts = [];
+        this.user.hash = localStorage.getItem("userHash");
+        this.getUserData();
+        this.loadPosts();
+      }
+    });
   }
 }

@@ -126,12 +126,12 @@ define_zome! {
             handler:  member::handlers::handle_get_my_profile
         }
         get_post_address:{
-            inputs: | post_entry: post::Post|,
+            inputs: |content: String,creator_hash:Address, timestamp: u32|,
             outputs: |result: ZomeApiResult<Address>|,
             handler:  post::handlers::handle_get_post_address
         }
         get_comment_address:{
-            inputs: | comment_entry: comment::Comment|,
+            inputs: | content: String,creator_hash:Address, timestamp: u32|,
             outputs: |result: ZomeApiResult<Address>|,
             handler:  comment::handlers::handle_get_comment_address
         }

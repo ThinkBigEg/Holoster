@@ -40,8 +40,13 @@ pub fn handle_delete_comment(post_address: Address , comment_address: Address) -
     api::remove_entry(&comment_address)
 }
 
-pub fn handle_get_comment_address(comment_entry: Comment) -> ZomeApiResult<Address> {
-    let comment_entry = Entry::App("Comment".into() , comment_entry.into());
+pub fn handle_get_comment_address(content: String, creator_hash: Address ,timestamp: u32) -> ZomeApiResult<Address> {
+    let comment_entry = Entry::App("comment".into() ,
+                                   Comment{
+                                       content,
+                                       creator_hash,
+                                       timestamp ,
+                                    }.into());
     let entry_address = hdk::entry_address(&comment_entry)?;
     Ok(entry_address)
 }

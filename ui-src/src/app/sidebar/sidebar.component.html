@@ -9,6 +9,26 @@
     <i class="fas fa-bars"></i>
   </button>
 
+  <!-- Navbar Search -->
+  <form
+    class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
+  >
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search for..."
+        aria-label="Search"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button class="searchButton" type="button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
   <!-- Navbar -->
   <ul class="navbar-nav ml-auto ml-md-0">
     <li class="nav-item dropdown no-arrow">
@@ -48,8 +68,21 @@
     <li class="nav-item active">
       <a class="nav-link" href="index.html">
         <i class="fas fa-home"></i>
-        <span>item</span>
+        <span>Home</span>
       </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <i class="fas fa-bell fa-fw"></i>
+        <span>Notifications</span></a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Messages</span></a
+      >
     </li>
   </ul>
 
@@ -57,7 +90,10 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Timeline</li>
+        <li class="breadcrumb-item">
+          <a routerLink="/myprofile" routerLinkActive="active">Profile</a>
+        </li>
+        <li class="breadcrumb-item active">Time line</li>
       </ol>
 
       <!-- Posts-->
@@ -65,15 +101,6 @@
       <br />
 
       <!-- /.container-fluid -->
-
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
     </div>
     <!-- /.content-wrapper -->
   </div>

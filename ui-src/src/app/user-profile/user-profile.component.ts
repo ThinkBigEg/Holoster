@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Params, ActivatedRoute } from "@angular/router";
+import { Params, ActivatedRoute, Router } from "@angular/router";
 import { DataService } from "../data.service";
 import { User } from "../Classes/User";
 import { Post } from "../Classes/Post";
@@ -11,7 +11,11 @@ import { Post } from "../Classes/Post";
 })
 export class UserProfileComponent implements OnInit {
   user: User;
-  constructor(public service: DataService, private route: ActivatedRoute) {}
+  constructor(
+    public service: DataService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   loadPosts = () => {
     this.service
@@ -42,9 +46,15 @@ export class UserProfileComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.user = new User();
     const hash: string = this.route.snapshot.paramMap.get("id");
-    console.log(new Date(1561144814));
+    if (localStorage.getItem("userHash") == hash) {
+      this.router.navigate(["myprofile"]);
+    }
+    if (localStorage.getItem("userHash") == null) {
+      this.router.navigate(["signup"]);
+    }
+    this.user = new User();
+    this.user.posts = [];
     this.user.hash = hash;
     this.getUserData();
     this.loadPosts();

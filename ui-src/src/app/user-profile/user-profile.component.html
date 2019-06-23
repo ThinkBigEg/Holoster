@@ -106,7 +106,7 @@
                   <div class="media">
                     <div class="media-left">
                       <a href="#" class="anchor-username">
-                        <h4 class="media-heading">Annonumus User</h4>
+                        <h4 class="media-heading">{{ user.handle }}</h4>
                       </a>
                     </div>
                   </div>
@@ -134,33 +134,48 @@
 
             <br /><br />
 
-            <section class="post-footer-comment-wrapper">
-              <label id="PostBody">Post Content.</label>
-            </section>
-
-            <section class="post-footer">
-              <hr />
-              <div class="post-footer-comment-wrapper">
-                <div class="comment-form">
-                  <a routerLink="/post" routerLinkActive="active">Go to post</a>
+            <ol *ngFor="let post of user.posts">
+              <div class="col-md-9" style="margin: auto;">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <section class="post-heading">
+                      <div class="row">
+                        <div class="col-md-11">
+                          <div class="media">
+                            <div class="media-left">
+                              <a
+                                routerLink="/user/{{ post.creator.hash }}"
+                                routerLinkActive="active"
+                                class="anchor-username"
+                              >
+                                <h4 class="media-heading">
+                                  {{ post.creator.handle }}
+                                </h4>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                    <section class="post-body">
+                      <p id="PostBody">{{ post.content }}</p>
+                    </section>
+                    <section class="post-footer">
+                      <hr />
+                      <div class="post-footer-comment-wrapper">
+                        <div class="comment-form">
+                          <a
+                            routerLink="/post/{{ post.hash }}"
+                            routerLinkActive="active"
+                            >Go to post</a
+                          >
+                        </div>
+                      </div>
+                    </section>
+                  </div>
                 </div>
               </div>
-            </section>
-
-            <br /><br />
-
-            <section class="post-footer-comment-wrapper">
-              <label id="PostBody">Post Content.</label>
-            </section>
-
-            <section class="post-footer">
-              <hr />
-              <div class="post-footer-comment-wrapper">
-                <div class="comment-form">
-                  <a routerLink="/post" routerLinkActive="active">Go to post</a>
-                </div>
-              </div>
-            </section>
+            </ol>
           </div>
         </div>
       </div>

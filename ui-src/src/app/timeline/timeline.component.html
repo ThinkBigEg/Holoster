@@ -1,4 +1,4 @@
-<li *ngFor="let post of followedUsersPosts">
+<ol *ngFor="let post of timeLinePosts">
   <div class="col-md-9" style="margin: auto;">
     <div class="panel panel-default">
       <div class="panel-body">
@@ -8,12 +8,12 @@
               <div class="media">
                 <div class="media-left">
                   <a
-                    routerLink="/user/{{ post.creatorHash }}"
+                    routerLink="/user/{{ post.creator.hash }}"
                     routerLinkActive="active"
                     class="anchor-username"
                   >
                     <h4 class="media-heading">
-                      {{ post.creatorHash }}
+                      {{ post.creator.handle }}
                     </h4>
                   </a>
                 </div>
@@ -22,7 +22,7 @@
           </div>
         </section>
         <section class="post-body">
-          <label id="PostBody">{{ post.content }}</label>
+          <p id="PostBody">{{ post.content }}</p>
         </section>
         <section class="post-footer">
           <hr />
@@ -37,7 +37,7 @@
       </div>
     </div>
   </div>
-</li>
+</ol>
 
 <!--<a routerLink="posts" [class.activated]="currentUrl == '/posts'"
     >Go to posts</a
