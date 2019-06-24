@@ -35,9 +35,13 @@ export class MyProfileComponent implements OnInit {
       this.service
         .makeRequest({ post_address: createdPostHash }, "get_post")
         .subscribe(data => {
-          let post: Post = JSON.parse(JSON.parse(data.result).Ok.App[1]);
-          post.creator = this.user;
-          post.hash = createdPostHash;
+          let postData = JSON.parse(JSON.parse(data.result).Ok.App[1]);
+          let post: Post = new Post(
+            postData.content,
+            postData.timestamp,
+            this.user,
+            createdPostHash
+          );
           this.user.posts.push(post);
         });
     });
@@ -118,6 +122,18 @@ export class MyProfileComponent implements OnInit {
         let userData = JSON.parse(data.result).Ok[0];
         this.user.handle = userData.name;
         this.user.avatarURL = userData.avatar_url;
+      });
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "get_followed_by")
+      .subscribe(data => {
+        let followers = JSON.parse(data.result).Ok;
+        this.user.followersNumber = followers.length;
+      });
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "get_following")
+      .subscribe(data => {
+        let followings = JSON.parse(data.result).Ok;
+        this.user.followingsNumber = followings.length;
       });
   };
 

@@ -91,9 +91,9 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a routerLink="/post" routerLinkActive="active">Post</a>
+          <a routerLink="/home" routerLinkActive="active">Timeline</a>
         </li>
-        <li class="breadcrumb-item active">Profile</li>
+        <li class="breadcrumb-item active">{{ user.handle }}</li>
       </ol>
 
       <!-- Posts-->
@@ -114,20 +114,36 @@
               </div>
             </section>
             <section class="post-body">
-              <img class="image" src="../../assets/img/logo_transparent.jpeg" />
+              <img class="image" src="{{ user.avatarURL }}" />
               <br />
-              <button type="submit" class="FollowButton">
+              <button type="submit" class="FollowButton" (click)="follow()">
                 Follow
               </button>
+              <button type="submit" class="FollowButton" (click)="unfollow()">
+                unfollow
+              </button>
               <div>
-                <a class="col-md-2" href="#">
+                <a
+                  class="col-md-2"
+                  routerLink="/followings/{{ user.hash }}"
+                  routerLinkActive="active"
+                >
                   <span class="followColor">Following</span>
-                  <label class="followColor" id="No_of_Followings">(20)</label>
+                  <label class="followColor" id="No_of_Followings"
+                    >({{ user.followingsNumber }})</label
+                  >
                 </a>
 
-                <a class="col-md-10" href="#">
+                <a
+                  class="col-md-10"
+                  class="col-md-2"
+                  routerLink="/followers/{{ user.hash }}"
+                  routerLinkActive="active"
+                >
                   <span class="followColor">Followers</span>
-                  <label class="followColor" id="No_of_Followers">(20)</label>
+                  <label class="followColor" id="No_of_Followers"
+                    >({{ user.followersNumber }})</label
+                  >
                 </a>
               </div>
             </section>
@@ -135,46 +151,61 @@
             <br /><br />
 
             <ol *ngFor="let post of user.posts">
-              <div class="col-md-9" style="margin: auto;">
-                <div class="panel panel-default">
-                  <div class="panel-body">
-                    <section class="post-heading">
-                      <div class="row">
-                        <div class="col-md-11">
-                          <div class="media">
-                            <div class="media-left">
-                              <a
-                                routerLink="/user/{{ post.creator.hash }}"
-                                routerLinkActive="active"
-                                class="anchor-username"
-                              >
-                                <h4 class="media-heading">
-                                  {{ post.creator.handle }}
-                                </h4>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                    <section class="post-body">
-                      <p id="PostBody">{{ post.content }}</p>
-                    </section>
-                    <section class="post-footer">
-                      <hr />
-                      <div class="post-footer-comment-wrapper">
-                        <div class="comment-form">
-                          <a
-                            routerLink="/post/{{ post.hash }}"
-                            routerLinkActive="active"
-                            >Go to post</a
-                          >
-                        </div>
-                      </div>
-                    </section>
-                  </div>
+              <section class="post-footer-comment-wrapper">
+                <div class="userleft">
+                  <a href="user/{{ user.hash }}">
+                    <img
+                      class="photo-profile"
+                      src="{{ user.avatarURL }}"
+                      width="40"
+                      height="40"
+                      alt="..."
+                    />
+                  </a>
                 </div>
-              </div>
+
+                <div class="userright">
+                  <a href="#" class="anchor-username">
+                    <h4>{{ post.user }}</h4>
+                  </a>
+                </div>
+
+                <a
+                  style="text-decoration: none"
+                  routerLink="/post/{{ post.hash }}"
+                  routerLinkActive="active"
+                >
+                  <div>
+                    <div class="underPic">
+                      <span class="anchor-time">{{ post.dateTimeString }}</span>
+                    </div>
+                    <div style="padding-right: 10px;">
+                      <h4>{{ post.content }}</h4>
+                    </div>
+                  </div></a
+                >
+
+                <br />
+                <div
+                  class="col-md-12 search"
+                  style="visibility: hidden"
+                  id="{{ post.hash }}"
+                >
+                  <input
+                    type="text"
+                    id="{{ post.hash }}-update"
+                    class="searchTerm"
+                    placeholder="update post"
+                  />
+                  <button
+                    type="submit"
+                    class="searchButton"
+                    (click)="updatePost(post)"
+                  >
+                    <i class="far fa-plus-square"></i>
+                  </button>
+                </div>
+              </section>
             </ol>
           </div>
         </div>

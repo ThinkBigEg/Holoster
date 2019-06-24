@@ -10949,8 +10949,8 @@ body{
 }
 
 .anchor-time{
-  color:#ADB2BB;
-  font-size:1.2rem;
+  color:rgb(0, 0, 0);
+  font-size: 12px;
 }
 
 .followColor{
@@ -11021,9 +11021,8 @@ margin-left: 5px;
   float: left;
 }
 .underPic{
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-right: 80%;
+  padding-top: 12px;
+  text-align: left;
 }
 .dropbtn {
   background-color: #4CAF50;
