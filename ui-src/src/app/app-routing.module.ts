@@ -9,6 +9,8 @@ import { TimelineComponent } from "./timeline/timeline.component";
 import { SidebarComponent } from "../../src/app/sidebar/sidebar.component";
 import { PostPageComponent } from "../../src/app/post-page/post-page.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { FollowersListComponent } from './followers-list/followers-list.component';
+import { FollowingListComponent } from './following-list/following-list.component';
 
 const routes: Routes = [
   {
@@ -34,6 +36,14 @@ const routes: Routes = [
     component: TimelineComponent
   },
   {
+    path: 'followers',
+    component: FollowersListComponent
+  },
+  {
+    path: 'following',
+    component: FollowingListComponent
+  },
+  {
     path: "**", // If no matching route found, go back to home route
     component: SignupComponent
   }
@@ -44,4 +54,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
