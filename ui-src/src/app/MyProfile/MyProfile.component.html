@@ -147,10 +147,32 @@
             <ol *ngFor="let post of user.posts">
               <section class="post-footer-comment-wrapper">
                 <p id="PostBody">{{ post.content }}</p>
+
                 <div>
-                  <button class="ActionButton">update</button>
+                  <button class="ActionButton" (click)="writePost(post)">
+                    update
+                  </button>
                   <button class="ActionButton" (click)="deletePost(post)">
                     delete
+                  </button>
+                </div>
+                <div
+                  class="col-md-12 search"
+                  style="visibility: hidden"
+                  id="{{ post.hash }}"
+                >
+                  <input
+                    type="text"
+                    id="{{ post.hash }}-update"
+                    class="searchTerm"
+                    placeholder="update post"
+                  />
+                  <button
+                    type="submit"
+                    class="searchButton"
+                    (click)="updatePost(post)"
+                  >
+                    <i class="far fa-plus-square"></i>
                   </button>
                 </div>
               </section>

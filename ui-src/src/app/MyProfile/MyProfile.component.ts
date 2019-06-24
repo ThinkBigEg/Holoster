@@ -44,8 +44,6 @@ export class MyProfileComponent implements OnInit {
   };
 
   deletePost = (post: Post) => {
-    console.log(post.hash);
-
     this.service
       .makeRequest({ post_address: post.hash }, "delete_post")
       .subscribe(() => {
@@ -76,6 +74,43 @@ export class MyProfileComponent implements OnInit {
       });
   };
 
+  writePost = (post: Post) => {
+    document.getElementById(post.hash).style.visibility = "visible";
+  };
+  updatePost = (post: Post) => {
+    let content: string = (<HTMLInputElement>(
+      document.getElementById(post.hash + "-update")
+    )).value;
+    if (content == post.content) {
+      alert("same post content");
+      return;
+    }
+    if (content.length == 0) {
+      alert("cant add empty post");
+      return;
+    }
+    let params = {
+      old_post_address: post.hash,
+      content: content,
+      timestamp: Math.floor(Date.now() / 1000)
+    };
+    this.service.makeRequest(params, "update_post").subscribe(data => {
+      let newPostHash: string = JSON.parse(data.result).Ok;
+      this.service
+        .makeRequest({ post_address: newPostHash }, "get_post")
+        .subscribe(data => {
+          let postData = JSON.parse(JSON.parse(data.result).Ok.App[1]);
+          let updatedPost: Post = new Post(
+            postData.content,
+            postData.timestamp,
+            postData.creator_hash,
+            newPostHash
+          );
+          let index = this.user.posts.findIndex(p => p === post);
+          this.user.posts[index] = updatedPost;
+        });
+    });
+  };
   getUserData = () => {
     this.service
       .makeRequest({ agent_address: this.user.hash }, "get_member_profile")
@@ -94,7 +129,7 @@ export class MyProfileComponent implements OnInit {
       } else {
         this.user = new User();
         this.user.posts = [];
-        this.user.hash = localStorage.getItem("userHash");
+        this.user.hash = sessionStorage.getItem("userHash");
         this.getUserData();
         this.loadPosts();
       }
