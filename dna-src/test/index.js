@@ -160,7 +160,7 @@ scenario.runTape("Create_post & Comment & update it then get_post_comment by pos
     const commentsAfter = await alice.callSync("holoster", "get_post_comments", {"post_address": postAddr.Ok})
     console.log("All post Comments after : ",commentsAfter)
 })
-*/
+
 scenario.runTape('Can register alice & bob, alice follows bob, check following and followed_by ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
     console.log(register_address1.Ok)
@@ -178,6 +178,7 @@ scenario.runTape('Can register alice & bob, alice follows bob, check following a
     const get_followed_by = await bob.callSync('holoster', 'get_followed_by', {agent_address: register_address2.Ok})
     console.log(get_followed_by)
 })
+*/
 /*
 scenario.runTape('Can register alice & bob, alice follows bob, check following then unfollow ', async (t, {alice, bob}) => {
     const register_address1 = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
@@ -239,3 +240,21 @@ scenario.runTape('Can register alice return profiles , empty parameter ', async 
 })
 
 */
+
+scenario.runTape("create post & upvote then get upvotes , then remove your vote", async(t, { alice }) => {
+
+    const userAddr = await alice.callSync('holoster', 'register', {name: 'alice', avatar_url: ''})
+    console.log("User Address : ",userAddr)
+
+    let now = Math.floor(Date.now() / 1000)
+    const post1Addr = await alice.callSync("holoster", "create_post", {"content":"This is a post 1" , "timestamp":now})
+    console.log("Post 1 : ",post1Addr)
+
+    const ans = await alice.callSync("holoster", "vote", {"target_address": post1Addr.Ok, "_state":true , "target":"post", "_type":"down"})
+    const postsvotes = await alice.callSync("holoster", "get_votes", {"target_address": post1Addr.Ok,"target":"post","_type":"up" })
+    const postsvotes3 = await alice.callSync("holoster", "get_votes", {"target_address": post1Addr.Ok,"target":"post","_type":"down" })
+
+    console.log("Post votes : ",postsvotes)
+    console.log("Post votes : ",postsvotes3)
+
+})
