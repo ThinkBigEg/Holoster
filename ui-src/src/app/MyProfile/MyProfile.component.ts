@@ -123,6 +123,18 @@ export class MyProfileComponent implements OnInit {
         this.user.handle = userData.name;
         this.user.avatarURL = userData.avatar_url;
       });
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "get_followed_by")
+      .subscribe(data => {
+        let followers = JSON.parse(data.result).Ok;
+        this.user.followersNumber = followers.length;
+      });
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "get_following")
+      .subscribe(data => {
+        let followings = JSON.parse(data.result).Ok;
+        this.user.followingsNumber = followings.length;
+      });
   };
 
   ngOnInit() {

@@ -17,20 +17,39 @@ export class UserProfileComponent implements OnInit {
     private router: Router
   ) {}
 
+  follow = () => {
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "follow_user")
+      .subscribe(data => {
+        this.getUserData();
+      });
+  };
+  unfollow = () => {
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "unfollow_user")
+      .subscribe(data => {
+        this.getUserData();
+      });
+  };
   loadPosts = () => {
     this.service
       .makeRequest({ user_address: this.user.hash }, "get_user_posts")
       .subscribe(data => {
         let posts = JSON.parse(data.result).Ok;
         posts.forEach(element => {
-          this.user.posts.push(
-            new Post(
-              element.content,
-              element.timestamp,
-              element.creator_hash,
-              element.hash
-            )
-          );
+          let post: Post;
+          this.service
+            .makeRequest(element, "get_post_address")
+            .subscribe(data => {
+              let address = JSON.parse(data.result).Ok;
+              post = new Post(
+                element.content,
+                element.timestamp,
+                this.user,
+                address
+              );
+              this.user.posts.push(post);
+            });
         });
       });
   };
@@ -43,13 +62,25 @@ export class UserProfileComponent implements OnInit {
         this.user.handle = userData.name;
         this.user.avatarURL = userData.avatar_url;
       });
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "get_followed_by")
+      .subscribe(data => {
+        let followers = JSON.parse(data.result).Ok;
+        this.user.followersNumber = followers.length;
+      });
+    this.service
+      .makeRequest({ agent_address: this.user.hash }, "get_following")
+      .subscribe(data => {
+        let followings = JSON.parse(data.result).Ok;
+        this.user.followingsNumber = followings.length;
+      });
   };
 
   ngOnInit() {
     const hash: string = this.route.snapshot.paramMap.get("id");
-    if (sessionStorage.getItem("userHash") == hash) {
-      this.router.navigate(["myprofile"]);
-    }
+    // if (sessionStorage.getItem("userHash") == hash) {
+    //   this.router.navigate(["myprofile"]);
+    // }
     if (sessionStorage.getItem("userHash") == null) {
       this.router.navigate(["signup"]);
     }

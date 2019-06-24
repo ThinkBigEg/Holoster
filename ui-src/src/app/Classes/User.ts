@@ -5,4 +5,6 @@ export class User {
   handle: string;
   avatarURL: string;
   posts: Post[];
+  followersNumber: number;
+  followingsNumber: number;
 }
