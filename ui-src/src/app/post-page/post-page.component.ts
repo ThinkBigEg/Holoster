@@ -5,6 +5,8 @@ import { DataService } from "../data.service";
 import { Comment } from "../Classes/Comment";
 import { from } from "rxjs";
 import { User } from "../Classes/User";
+import { Vote } from "../Classes/Vote";
+import { forEach } from "@angular/router/src/utils/collection";
 @Component({
   selector: "app-post-page",
   templateUrl: "./post-page.component.html",
@@ -36,6 +38,61 @@ export class PostPageComponent implements OnInit {
           });
       });
   };
+  upVote = commentOrPost => {
+    let params = {
+      target_address: commentOrPost.hash,
+      _state: true,
+      target: commentOrPost.constructor.name.toLocaleLowerCase(),
+      _type: "up"
+    };
+    this.service.makeRequest(params, "vote").subscribe(() => {
+      this.service
+        .makeRequest(
+          {
+            target_address: commentOrPost.hash,
+            target: commentOrPost.constructor.name.toLocaleLowerCase(),
+            _type: "up"
+          },
+          "get_votes"
+        )
+        .subscribe(data => {
+          let upVotes = JSON.parse(data.result).Ok;
+          upVotes.forEach(element => {
+            commentOrPost.votes.push(new Vote(1, commentOrPost.creatorHash));
+          });
+
+          this.service
+            .makeRequest(
+              {
+                target_address: commentOrPost.hash,
+                target: "comment",
+                _type: "down"
+              },
+              "get_votes"
+            )
+            .subscribe(data => {
+              let upVotes = JSON.parse(data.result).Ok;
+              upVotes.forEach(element => {
+                commentOrPost.votes.push(
+                  new Vote(-1, commentOrPost.creatorHash)
+                );
+              });
+              commentOrPost.value = this.evaluateCommentValue(
+                commentOrPost.votes
+              );
+            });
+        });
+    });
+  };
+  downVote = commentOrPost => {
+    let params = {
+      target_address: commentOrPost.hash,
+      _state: true,
+      target: commentOrPost.constructor.name.toLocaleLowerCase(),
+      _type: "down"
+    };
+    this.service.makeRequest(params, "vote").subscribe(() => {});
+  };
 
   addComment = () => {
     let comment: string = (<HTMLInputElement>(
@@ -64,7 +121,8 @@ export class PostPageComponent implements OnInit {
               new Comment(
                 commentData.content,
                 commentData.timestamp,
-                commentData.creator_hash
+                commentData.creator_hash,
+                commentHash
               )
             );
           });
@@ -76,15 +134,66 @@ export class PostPageComponent implements OnInit {
       .subscribe(data => {
         let comments = JSON.parse(data.result).Ok;
         comments.forEach(element => {
-          this.post.comments.push(
-            new Comment(
-              element.content,
-              element.timestamp,
-              element.creator_hash
+          this.service
+            .makeRequest(
+              {
+                content: element.content,
+                creator_hash: element.creator_hash,
+                timestamp: element.timestamp
+              },
+              "get_comment_address"
             )
-          );
+            .subscribe(data => {
+              let comment: Comment = new Comment(
+                element.content,
+                element.timestamp,
+                element.creator_hash,
+                JSON.parse(data.result).Ok
+              );
+              this.service
+                .makeRequest(
+                  {
+                    target_address: comment.hash,
+                    target: "comment",
+                    _type: "up"
+                  },
+                  "get_votes"
+                )
+                .subscribe(data => {
+                  let upVotes = JSON.parse(data.result).Ok;
+                  upVotes.forEach(element => {
+                    comment.votes.push(new Vote(1, comment.creatorHash));
+                  });
+
+                  this.service
+                    .makeRequest(
+                      {
+                        target_address: comment.hash,
+                        target: "comment",
+                        _type: "down"
+                      },
+                      "get_votes"
+                    )
+                    .subscribe(data => {
+                      let upVotes = JSON.parse(data.result).Ok;
+                      upVotes.forEach(element => {
+                        comment.votes.push(new Vote(-1, comment.creatorHash));
+                      });
+                      comment.value = this.evaluateCommentValue(comment.votes);
+                      this.post.comments.push(comment);
+                    });
+                });
+            });
         });
       });
+  };
+
+  evaluateCommentValue = (votes: Vote[]) => {
+    let value = 0;
+    votes.forEach(vote => {
+      value += vote.value;
+    });
+    return value;
   };
   ngOnInit() {
     const hash: string = this.route.snapshot.paramMap.get("id");
