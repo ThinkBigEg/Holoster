@@ -47,10 +47,10 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     const hash: string = this.route.snapshot.paramMap.get("id");
-    if (localStorage.getItem("userHash") == hash) {
+    if (sessionStorage.getItem("userHash") == hash) {
       this.router.navigate(["myprofile"]);
     }
-    if (localStorage.getItem("userHash") == null) {
+    if (sessionStorage.getItem("userHash") == null) {
       this.router.navigate(["signup"]);
     }
     this.user = new User();

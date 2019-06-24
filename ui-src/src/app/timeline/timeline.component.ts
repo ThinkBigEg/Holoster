@@ -80,7 +80,7 @@ export class TimelineComponent implements OnInit {
       } else {
         this.user = new User();
         this.timeLinePosts = [];
-        this.user.hash = localStorage.getItem("userHash");
+        this.user.hash = sessionStorage.getItem("userHash");
         this.loadTimeLine();
       }
     });

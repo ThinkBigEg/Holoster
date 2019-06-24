@@ -29,20 +29,22 @@ export class SignupComponent implements OnInit {
   signUp = () => {
     let handle = this.profileForm.get("handle").value;
     let avatarLink = this.profileForm.get("avatar").value;
-    if (handle.length == 0 || avatarLink.length == 0) {
+    if (handle.length == 0) {
       return;
+    }
+    if (avatarLink.length == 0) {
+      avatarLink = "../assets/img/avatar_placeholder.jpg";
     }
     this.service
       .makeRequest({ name: handle, avatar_url: avatarLink }, "register")
       .subscribe(data => {
         let userHash = JSON.parse(data.result).Ok;
-        localStorage.setItem("userHash", userHash);
+        sessionStorage.setItem("userHash", userHash);
         this.goToHomePage(userHash);
       });
   };
 
   goToHomePage = (hash: string) => {
-    console.log(hash);
     if (hash.length > 0) this.router.navigate(["myprofile"]);
   };
 

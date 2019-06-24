@@ -38,8 +38,9 @@ export class PostPageComponent implements OnInit {
   };
 
   addComment = () => {
-    var comment = (<HTMLInputElement>document.getElementById("SearchTerm"))
-      .value;
+    let comment: string = (<HTMLInputElement>(
+      document.getElementById("SearchTerm")
+    )).value;
     if (comment.length == 0) {
       return;
     }
