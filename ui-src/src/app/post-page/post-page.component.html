@@ -1,26 +1,15 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
   <a class="navbar-brand mr-1" href="index.html">Holoster</a>
 
-  <button
-    class="btn btn-link btn-sm text-white order-1 order-sm-0"
-    id="sidebarToggle"
-    href="#"
-  >
+  <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
     <i class="fas fa-bars"></i>
   </button>
 
   <!-- Navbar Search -->
-  <form
-    class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
-  >
+  <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
     <div class="input-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search for..."
-        aria-label="Search"
-        aria-describedby="basic-addon2"
-      />
+      <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
+        aria-describedby="basic-addon2" />
       <div class="input-group-append">
         <button class="searchButton" type="button">
           <i class="fas fa-search"></i>
@@ -32,31 +21,15 @@
   <!-- Navbar -->
   <ul class="navbar-nav ml-auto ml-md-0">
     <li class="nav-item dropdown no-arrow">
-      <a
-        class="nav-link dropdown-toggle"
-        href="#"
-        id="userDropdown"
-        role="button"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-user-circle fa-fw"></i>
       </a>
-      <div
-        class="dropdown-menu dropdown-menu-right"
-        aria-labelledby="userDropdown"
-      >
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
         <a class="dropdown-item" href="#">Settings</a>
         <a class="dropdown-item" href="#">Activity Log</a>
         <div class="dropdown-divider"></div>
-        <a
-          class="dropdown-item"
-          href="#"
-          data-toggle="modal"
-          data-target="#logoutModal"
-          >Logout</a
-        >
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
       </div>
     </li>
   </ul>
@@ -75,14 +48,12 @@
     <li class="nav-item">
       <a class="nav-link" href="#">
         <i class="fas fa-bell fa-fw"></i>
-        <span>Notifications</span></a
-      >
+        <span>Notifications</span></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">
         <i class="fas fa-fw fa-table"></i>
-        <span>Messages</span></a
-      >
+        <span>Messages</span></a>
     </li>
   </ul>
 
@@ -105,11 +76,7 @@
                 <div class="col-md-11">
                   <div class="media">
                     <div class="media-left">
-                      <a
-                        routerLink="/user/{{ post.creator.hash }}"
-                        routerLinkActive="active"
-                        class="anchor-username"
-                      >
+                      <a routerLink="/user/{{ post.creator.hash }}" routerLinkActive="active" class="anchor-username">
                         <h4 class="media-heading">
                           {{ post.creator.handle }}
                         </h4>
@@ -122,97 +89,81 @@
             <section class="post-body">
               <label id="PostBody">{{ post.content }}</label>
             </section>
+
             <section class="post-footer">
-              <hr />
+              <hr>
+
               <div class="post-footer-comment-wrapper">
-                <div class="comment-form">
-                  <ol *ngFor="let comment of post.comments">
+                <ol *ngFor="let comment of post.comments">
+
+                  <button class="btn" style="float: right;font-size: 30px;margin-bottom: -28px;"><i
+                      class="fas fa-chevron-up"></i></button>
+                  <br><br>
+                  <button class="btn" style="float: right;font-size: 30px;"><i class="fas fa-chevron-down"></i></button>
+
+                  <div class="comment-form">
                     <div class="anchor-time">
                       <label>{{ comment.content }}</label>
 
-                      <div class="col-md-2">
-                        <button class="VoteButton">+</button>
-                        <button class="VoteButton">-</button>
-                      </div>
-
-                      <hr />
+                      <hr>
                     </div>
-                  </ol>
-                  <div class="col-md-12 search">
-                    <input
-                      type="text"
-                      class="searchTerm"
-                      id="SearchTerm"
-                      placeholder="Write a comment..."
-                    />
-                    <button
-                      type="submit"
-                      (click)="addComment()"
-                      class="searchButton"
-                    >
-                      <i class="fas fa-comment"></i>
-                    </button>
-                  </div>
+                </ol>
+                <div class="col-md-12 search">
+                  <input type="text" class="searchTerm" id="SearchTerm" placeholder="Write a comment...">
+                  <button type="submit" (click)="addComment()" class="searchButton">
+                    <i class="fas fa-comment"></i>
+                  </button>
                 </div>
               </div>
-            </section>
           </div>
+          </section>
+
         </div>
       </div>
-      <br />
+    </div>
+    <br />
 
-      <!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
-      <!-- Sticky Footer -->
-      <!-- <footer class="sticky-footer">
+    <!-- Sticky Footer -->
+    <!-- <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright © Your Website 2019</span>
           </div>
         </div>
       </footer> -->
-    </div>
-    <!-- /.content-wrapper -->
   </div>
-  <!-- /#wrapper -->
+  <!-- /.content-wrapper -->
+</div>
+<!-- /#wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
 
-  <!-- Logout Modal-->
-  <div
-    class="modal fade"
-    id="logoutModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button
-            class="close"
-            type="button"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Select "Logout" below if you are ready to end your current session.
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">
-            Cancel
-          </button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Select "Logout" below if you are ready to end your current session.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+          Cancel
+        </button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
       </div>
     </div>
   </div>
+</div>
 </div>
