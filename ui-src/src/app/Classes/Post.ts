@@ -9,6 +9,7 @@ export class Post {
   timeStamp: number;
   comments: Comment[];
   votes: Vote[];
+  dateTimeString: String;
   public constructor(
     content: string,
     timeStamp: number,
@@ -19,5 +20,6 @@ export class Post {
     this.timeStamp = timeStamp;
     this.hash = hash;
     this.creator = creator;
+    this.dateTimeString = new Date(this.timeStamp * 1000).toLocaleString();
   }
 }

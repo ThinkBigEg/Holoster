@@ -35,9 +35,13 @@ export class MyProfileComponent implements OnInit {
       this.service
         .makeRequest({ post_address: createdPostHash }, "get_post")
         .subscribe(data => {
-          let post: Post = JSON.parse(JSON.parse(data.result).Ok.App[1]);
-          post.creator = this.user;
-          post.hash = createdPostHash;
+          let postData = JSON.parse(JSON.parse(data.result).Ok.App[1]);
+          let post: Post = new Post(
+            postData.content,
+            postData.timestamp,
+            this.user,
+            createdPostHash
+          );
           this.user.posts.push(post);
         });
     });
