@@ -10,6 +10,9 @@ import { TimelineComponent } from "./timeline/timeline.component";
 import { SignupComponent } from "./signup/signup.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FollowersListComponent } from './followers-list/followers-list.component';
+import { UnfollowersListComponent } from './unfollowers-list/unfollowers-list.component';
+import { FollowingListComponent } from './following-list/following-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     PostPageComponent,
     SignupComponent,
     UserProfileComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    FollowersListComponent,
+    UnfollowersListComponent,
+    FollowingListComponent
   ],
   imports: [
     BrowserModule,
