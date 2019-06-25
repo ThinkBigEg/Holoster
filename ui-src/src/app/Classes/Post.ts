@@ -1,5 +1,6 @@
 import { Comment } from "./Comment";
 import { User } from "./User";
+import { Vote } from "./Vote";
 
 export class Post {
   hash: string;
@@ -8,6 +9,8 @@ export class Post {
   timeStamp: number;
   comments: Comment[];
   dateTimeString: String;
+  value;
+  votes: Vote[];
   public constructor(
     content: string,
     timeStamp: number,
@@ -20,5 +23,7 @@ export class Post {
     this.creator = creator;
     this.dateTimeString = new Date(this.timeStamp * 1000).toLocaleString();
     this.comments = [];
+    this.votes = [];
+    this.value = 0;
   }
 }

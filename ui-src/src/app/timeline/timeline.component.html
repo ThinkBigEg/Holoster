@@ -3,44 +3,61 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <section class="post-footer-comment-wrapper">
-
-
           <div class="userleft">
             <a routerLink="/user/{{ user.hash }}" routerLinkActive="active">
-              <img class="photo-profile"
-                src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=40&d=mm&r=g" width="40" height="40"
-                alt="..." />
+              <img
+                class="photo-profile"
+                src="{{ post.creator.avatarURL }}"
+                width="40"
+                height="40"
+                alt="..."
+              />
             </a>
           </div>
 
           <div class="userright">
-            <a href="#" class="anchor-username">
-              <h4>{{post.creator.handle}}</h4>
+            <a
+              routerLink="/user/{{ post.creator.hash }}"
+              routerLinkActive="active"
+              class="anchor-username"
+            >
+              <h4>{{ post.creator.handle }}</h4>
             </a>
           </div>
 
-          <button class="btn" style="float: right;font-size: 30px;margin-bottom: -28px;"><i
-              class="fas fa-chevron-up"></i></button>
-          <br><br>
-          <button class="btn" style="float: right;font-size: 30px;"><i class="fas fa-chevron-down"></i></button>
-          <label class="label label-default" style="float: right;font-size: 25px;">5</label>
+          <button
+            class="btn"
+            style="float: right;font-size: 30px;margin-bottom: -28px;"
+          >
+            <i class="fas fa-chevron-up"></i>
+          </button>
+          <br /><br />
+          <button class="btn" style="float: right;font-size: 30px;">
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <label
+            class="label label-default"
+            style="float: right;font-size: 25px;"
+            >5</label
+          >
 
-          <a style="text-decoration: none" routerLink="/post/{{ post.hash }}" routerLinkActive="active">
+          <a
+            style="text-decoration: none"
+            routerLink="/post/{{ post.hash }}"
+            routerLinkActive="active"
+          >
             <div>
               <div class="underPic">
-                <span class="anchor-time">{{post.dateTimeString}}</span>
+                <span class="anchor-time">{{ post.dateTimeString }}</span>
               </div>
               <div style="padding-right: 10px;">
-                <h4>{{post.content}}</h4>
+                <h4>{{ post.content }}</h4>
               </div>
             </div>
           </a>
 
           <br />
-
         </section>
-
-
       </div>
     </div>
   </div>
