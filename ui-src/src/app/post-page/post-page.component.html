@@ -100,27 +100,65 @@
       <div class="col-md-9" style="margin: auto;">
         <div class="panel panel-default">
           <div class="panel-body">
-            <section class="post-heading">
-              <div class="row">
-                <div class="col-md-11">
-                  <div class="media">
-                    <div class="media-left">
-                      <a
-                        routerLink="/user/{{ post.creator.hash }}"
-                        routerLinkActive="active"
-                        class="anchor-username"
-                      >
-                        <h4 class="media-heading">
-                          {{ post.creator.handle }}
-                        </h4>
-                      </a>
-                    </div>
+            <section class="post-footer-comment-wrapper">
+              <div class="userleft">
+                <a
+                  routerLink="/user/{{ post.creator.hash }}"
+                  routerLinkActive="active"
+                >
+                  <img
+                    class="photo-profile"
+                    src="{{ post.creator.avatarURL }}"
+                    width="40"
+                    height="40"
+                    alt="..."
+                  />
+                </a>
+              </div>
+
+              <div class="userright">
+                <a href="#" class="anchor-username">
+                  <h4>{{ post.creator.handle }}</h4>
+                </a>
+              </div>
+
+              <button
+                (click)="upVote(post)"
+                class="btn"
+                style="float: right;font-size: 30px;margin-bottom: -28px;"
+              >
+                <i class="fas fa-chevron-up"></i>
+              </button>
+              <br /><br />
+              <button
+                (click)="downVote(post)"
+                class="btn"
+                style="float: right;font-size: 30px;"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <label
+                class="label label-default"
+                style="float: right;font-size: 25px;"
+                >{{ post.value }}</label
+              >
+
+              <a
+                style="text-decoration: none"
+                routerLink="/post/{{ post.hash }}"
+                routerLinkActive="active"
+              >
+                <div>
+                  <div class="underPic">
+                    <span class="anchor-time">{{ post.dateTimeString }}</span>
+                  </div>
+                  <div style="padding-right: 10px;">
+                    <h4>{{ post.content }}</h4>
                   </div>
                 </div>
-              </div>
-            </section>
-            <section class="post-body">
-              <label id="PostBody">{{ post.content }}</label>
+              </a>
+
+              <br />
             </section>
 
             <section class="post-footer">
@@ -135,7 +173,6 @@
                   >
                     <i class="fas fa-chevron-up"></i>
                   </button>
-                  <p>{{ comment.value }}</p>
                   <br /><br />
                   <button
                     (click)="downVote(comment)"
@@ -144,6 +181,11 @@
                   >
                     <i class="fas fa-chevron-down"></i>
                   </button>
+                  <label
+                    class="label label-default"
+                    style="float: right;font-size: 25px;"
+                    >{{ comment.value }}</label
+                  >
 
                   <div class="comment-form">
                     <div class="anchor-time">
@@ -152,6 +194,7 @@
                     </div>
                   </div>
                 </ol>
+
                 <div class="col-md-12 search">
                   <input
                     type="text"

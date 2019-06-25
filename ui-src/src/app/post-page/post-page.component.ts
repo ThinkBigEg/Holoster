@@ -33,65 +33,120 @@ export class PostPageComponent implements OnInit {
             this.post.creator.avatarURL = userData.avatar_url;
             this.post.creator.hash = post.creator_hash;
             this.post.content = post.content;
-            this.post.timeStamp = post.timeStamp;
-            this.loadComments();
+            this.post.timeStamp = post.timestamp;
+            this.service
+              .makeRequest(
+                {
+                  target_address: this.post.hash,
+                  _state: true,
+                  target: "post",
+                  _type: "up"
+                },
+                "get_votes"
+              )
+              .subscribe(data => {
+                let upVotes = JSON.parse(data.result).Ok;
+                upVotes.forEach(element => {
+                  this.post.votes.push(new Vote(1, element.creator_hash));
+                });
+
+                this.service
+                  .makeRequest(
+                    {
+                      target_address: this.post.hash,
+                      target: "post",
+                      _type: "down"
+                    },
+                    "get_votes"
+                  )
+                  .subscribe(data => {
+                    let downVotes = JSON.parse(data.result).Ok;
+                    downVotes.forEach(element => {
+                      this.post.votes.push(new Vote(-1, element.creator_hash));
+                    });
+                    this.post.value = this.evaluateCommentValue(
+                      this.post.votes
+                    );
+                  });
+              });
+          });
+        this.loadComments();
+      });
+  };
+
+  reEvaluateVotes = commentOrPost => {
+    commentOrPost.votes = [];
+    this.service
+      .makeRequest(
+        {
+          target_address: commentOrPost.hash,
+          target: commentOrPost.constructor.name.toLocaleLowerCase(),
+          _type: "up"
+        },
+        "get_votes"
+      )
+      .subscribe(data => {
+        let upVotes = JSON.parse(data.result).Ok;
+        upVotes.forEach(element => {
+          commentOrPost.votes.push(new Vote(1, element.creator_hash));
+        });
+
+        this.service
+          .makeRequest(
+            {
+              target_address: commentOrPost.hash,
+              target: commentOrPost.constructor.name.toLocaleLowerCase(),
+              _type: "down"
+            },
+            "get_votes"
+          )
+          .subscribe(data => {
+            let downVotes = JSON.parse(data.result).Ok;
+
+            downVotes.forEach(element => {
+              commentOrPost.votes.push(new Vote(-1, element.creator_hash));
+            });
+            commentOrPost.value = this.evaluateCommentValue(
+              commentOrPost.votes
+            );
+            console.log(commentOrPost.votes);
           });
       });
   };
   upVote = commentOrPost => {
+    let votes: Vote[] = commentOrPost.votes;
+    let currentUserHash = sessionStorage.getItem("userHash");
+    let state: boolean = !(
+      votes.filter(v => v.creatorHash == currentUserHash && v.value == 1)
+        .length > 0
+    );
     let params = {
       target_address: commentOrPost.hash,
-      _state: true,
+      _state: state,
       target: commentOrPost.constructor.name.toLocaleLowerCase(),
       _type: "up"
     };
-    this.service.makeRequest(params, "vote").subscribe(() => {
-      this.service
-        .makeRequest(
-          {
-            target_address: commentOrPost.hash,
-            target: commentOrPost.constructor.name.toLocaleLowerCase(),
-            _type: "up"
-          },
-          "get_votes"
-        )
-        .subscribe(data => {
-          let upVotes = JSON.parse(data.result).Ok;
-          upVotes.forEach(element => {
-            commentOrPost.votes.push(new Vote(1, commentOrPost.creatorHash));
-          });
-
-          this.service
-            .makeRequest(
-              {
-                target_address: commentOrPost.hash,
-                target: "comment",
-                _type: "down"
-              },
-              "get_votes"
-            )
-            .subscribe(data => {
-              let upVotes = JSON.parse(data.result).Ok;
-              upVotes.forEach(element => {
-                commentOrPost.votes.push(
-                  new Vote(-1, commentOrPost.creatorHash)
-                );
-              });
-              commentOrPost.value = this.evaluateCommentValue(
-                commentOrPost.votes
-              );
-            });
-        });
+    this.service.makeRequest(params, "vote").subscribe(data => {
+      this.reEvaluateVotes(commentOrPost);
     });
   };
+
   downVote = commentOrPost => {
+    let votes: Vote[] = commentOrPost.votes;
+    let currentUserHash = sessionStorage.getItem("userHash");
+    let state: boolean = !(
+      votes.filter(v => v.creatorHash == currentUserHash && v.value == -1)
+        .length > 0
+    );
     let params = {
       target_address: commentOrPost.hash,
-      _state: true,
+      _state: state,
       target: commentOrPost.constructor.name.toLocaleLowerCase(),
       _type: "down"
     };
-    this.service.makeRequest(params, "vote").subscribe(() => {});
+    this.service.makeRequest(params, "vote").subscribe(() => {
+      this.reEvaluateVotes(commentOrPost);
+    });
   };
 
   addComment = () => {
@@ -162,7 +217,7 @@ export class PostPageComponent implements OnInit {
                 .subscribe(data => {
                   let upVotes = JSON.parse(data.result).Ok;
                   upVotes.forEach(element => {
-                    comment.votes.push(new Vote(1, comment.creatorHash));
+                    comment.votes.push(new Vote(1, element.creator_hash));
                   });
 
                   this.service
@@ -177,7 +232,7 @@ export class PostPageComponent implements OnInit {
                     .subscribe(data => {
                       let upVotes = JSON.parse(data.result).Ok;
                       upVotes.forEach(element => {
-                        comment.votes.push(new Vote(-1, comment.creatorHash));
+                        comment.votes.push(new Vote(-1, element.creator_hash));
                       });
                       comment.value = this.evaluateCommentValue(comment.votes);
                       this.post.comments.push(comment);
@@ -187,7 +242,6 @@ export class PostPageComponent implements OnInit {
         });
       });
   };
-
   evaluateCommentValue = (votes: Vote[]) => {
     let value = 0;
     votes.forEach(vote => {
