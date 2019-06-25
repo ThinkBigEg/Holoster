@@ -49,20 +49,20 @@ or use the CLI directly
 ```
 mkdir -p dna
 cd dna-src
-hc package --strip-meta -o ../dna/holoster.hcpkg
+hc package --strip-meta -o ../dna/holoster.dna.json
 ```
 
 ### UI
 
 ```
+
 ```
 
 ## Built With
 
 * [Holochain](https://developer.holochain.org/)
 
+* [Angular 7](https://angular.io/)
 
 ## License
-
-This project is licensed under the GPL-3 License - see the [LICENSE.md](LICENSE.md) file for details
 
