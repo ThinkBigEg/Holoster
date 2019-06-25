@@ -87,10 +87,21 @@
             <section class="post-body">
               <img class="image" src="{{ user.avatarURL }}" />
               <br />
-              <button type="submit" class="FollowButton" (click)="follow()">
+
+              <button
+                *ngIf="!isFollowed"
+                type="submit"
+                class="FollowButton"
+                (click)="follow()"
+              >
                 Follow
               </button>
-              <button type="submit" class="FollowButton" (click)="unfollow()">
+              <button
+                *ngIf="isFollowed"
+                type="submit"
+                class="FollowButton"
+                (click)="unfollow()"
+              >
                 unfollow
               </button>
               <div>

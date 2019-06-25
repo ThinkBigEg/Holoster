@@ -11,6 +11,7 @@ import { Post } from "../Classes/Post";
 })
 export class UserProfileComponent implements OnInit {
   user: User;
+  isFollowed: boolean;
   constructor(
     public service: DataService,
     private route: ActivatedRoute,
@@ -67,6 +68,10 @@ export class UserProfileComponent implements OnInit {
       .subscribe(data => {
         let followers = JSON.parse(data.result).Ok;
         this.user.followersNumber = followers.length;
+        this.isFollowed =
+          followers.filter(
+            f => f.agent_address == sessionStorage.getItem("userHash")
+          ).length > 0;
       });
     this.service
       .makeRequest({ agent_address: this.user.hash }, "get_following")
@@ -78,9 +83,9 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     const hash: string = this.route.snapshot.paramMap.get("id");
-    // if (sessionStorage.getItem("userHash") == hash) {
-    //   this.router.navigate(["myprofile"]);
-    // }
+    if (sessionStorage.getItem("userHash") == hash) {
+      this.router.navigate(["myprofile"]);
+    }
     if (sessionStorage.getItem("userHash") == null) {
       this.router.navigate(["signup"]);
     }

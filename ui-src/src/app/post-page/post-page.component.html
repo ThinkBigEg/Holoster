@@ -115,11 +115,21 @@
 
               <div class="post-footer-comment-wrapper">
                 <ol *ngFor="let comment of post.comments">
-                  <button class="btn" style="float: right;font-size: 30px;margin-bottom: -28px;">
+                  <button
+                    (click)="upVote(comment)"
+                    class="btn"
+                    style="float: right;font-size: 30px;margin-bottom: -28px;"
+                  >
+
                     <i class="fas fa-chevron-up"></i>
                   </button>
+                  <p>{{ comment.value }}</p>
                   <br /><br />
-                  <button class="btn" style="float: right;font-size: 30px;">
+                  <button
+                    (click)="downVote(comment)"
+                    class="btn"
+                    style="float: right;font-size: 30px;"
+                  >
                     <i class="fas fa-chevron-down"></i>
                   </button>
                   <label class="label label-default" style="float: right;font-size: 25px;">5</label>
