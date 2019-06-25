@@ -117,13 +117,14 @@
               </div>
 
               <div class="userright">
-                <a href="#" class="anchor-username">
+                <a  routerLink="/user/{{ post.creator.hash }}"
+                    routerLinkActive="active" class="anchor-username">
                   <h4>{{ post.creator.handle }}</h4>
                 </a>
               </div>
 
               <button
-                (click)="upVote(post)"
+                (click)="downVote(post)"
                 class="btn"
                 style="float: right;font-size: 30px;margin-bottom: -28px;"
               >
@@ -131,7 +132,7 @@
               </button>
               <br /><br />
               <button
-                (click)="downVote(post)"
+                (click)="upVote(post)"
                 class="btn"
                 style="float: right;font-size: 30px;"
               >

@@ -17,7 +17,7 @@ export class DataService {
       jsonrpc: "2.0",
       method: "call",
       params: {
-        instance_id: "test-instance",
+        instance_id: "holoster_instance",
         zome: "holoster",
         function: functionName,
         params: params
@@ -28,6 +28,6 @@ export class DataService {
 
   makeRequest = (params: object, functionName: string) => {
     let requestBody: object = this.makeBody(functionName, params);
-    return this.http.post<Result>("http://127.0.0.1:8888", requestBody);
+    return this.http.post<Result>("http://127.0.0.1:8889", requestBody);
   };
 }

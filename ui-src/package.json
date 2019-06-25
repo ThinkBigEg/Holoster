@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "start2": "ng serve --port 9000",
     "buildUi": "rm -rf ../ui && ng build && mv ./dist ../ui",
     "test": "ng test",
     "lint": "ng lint",
