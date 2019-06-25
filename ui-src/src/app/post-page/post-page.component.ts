@@ -120,6 +120,20 @@ export class PostPageComponent implements OnInit {
       votes.filter(v => v.creatorHash == currentUserHash && v.value == 1)
         .length > 0
     );
+    let isDownVoted: boolean =
+      votes.filter(v => v.creatorHash == currentUserHash && v.value == -1)
+        .length > 0;
+    if (isDownVoted) {
+      this.service.makeRequest(
+        {
+          target_address: commentOrPost.hash,
+          _state: false,
+          target: commentOrPost.constructor.name.toLocaleLowerCase(),
+          _type: "down"
+        },
+        "vote"
+      );
+    }
     let params = {
       target_address: commentOrPost.hash,
       _state: state,
@@ -172,14 +186,14 @@ export class PostPageComponent implements OnInit {
           .makeRequest({ comment_address: commentHash }, "get_comment")
           .subscribe(data => {
             let commentData = JSON.parse(JSON.parse(data.result).Ok.App[1]);
-            this.post.comments.push(
-              new Comment(
-                commentData.content,
-                commentData.timestamp,
-                commentData.creator_hash,
-                commentHash
-              )
+            let comment: Comment = new Comment(
+              commentData.content,
+              commentData.timestamp,
+              commentData.creator_hash,
+              commentHash
             );
+            comment.value = this.evaluateCommentValue(comment.votes);
+            this.post.comments.push(comment);
           });
       });
   };

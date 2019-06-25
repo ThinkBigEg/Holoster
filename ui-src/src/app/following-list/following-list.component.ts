@@ -24,6 +24,7 @@ export class FollowingListComponent implements OnInit {
       .makeRequest({ agent_address: this.user.hash }, "get_following")
       .subscribe(data => {
         this.followings = JSON.parse(data.result).Ok;
+        console.log(this.followings);
       });
   };
 
