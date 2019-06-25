@@ -3,6 +3,7 @@
 ## [User Documentation](./user.md)
 ## [Post Documentation](./post.md)
 ## [Comment Documentation](./comment.md)
+## [Vote Documentation](./vote.md)
 
 ## Errors
 
