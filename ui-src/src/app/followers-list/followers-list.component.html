@@ -118,7 +118,10 @@
             <ol *ngFor="let follower of followers">
               <section class="post-footer-comment-wrapper">
                 <div style="padding-top: 10px;">
-                  <a href="#">
+                  <a
+                    routerLink="/user/{{ following.agent_address }}"
+                    routerLinkActive="active"
+                  >
                     <img
                       class="photo-profile"
                       src="{{ follower.avatar_url }}"
@@ -129,7 +132,11 @@
                   </a>
                 </div>
 
-                <a href="#" class="anchor-username">
+                <a
+                  routerLink="/user/{{ following.agent_address }}"
+                  routerLinkActive="active"
+                  class="anchor-username"
+                >
                   <h4>{{ follower.name }}</h4>
                 </a>
 
